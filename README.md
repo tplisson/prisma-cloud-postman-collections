@@ -1,6 +1,6 @@
-# Prisma Cloud Postman Collections
+# Prisma Cloud Postman Collections  
 
-These are my Postman collections for Prisma Cloud 
+These are my Postman collections for Prisma Cloud  
 * CSPM - Prisma Cloud - Cloud Security Posture Management
 * CWPP - Prisma Cloud - Cloud Workload Protection Platform
 * MSEG - Prisma Cloud - Identity based Microsegmentation
