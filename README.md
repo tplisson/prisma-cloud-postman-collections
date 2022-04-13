@@ -1,4 +1,4 @@
-# prisma-cloud-postman-collections
+# Prisma Cloud Postman Collections
 
 These are my Postman collections for Prisma Cloud 
 * CSPM - Prisma Cloud - Cloud Security Posture Management
@@ -7,5 +7,8 @@ These are my Postman collections for Prisma Cloud
 * PCCS - Prisma Cloud - Code Security
 
 
-Documentation for Prisma Cloud APIs:
+Prisma Cloud APIs documentation:  
 https://prisma.pan.dev/
+
+Postman documentation to import / export collections:  
+https://learning.postman.com/docs/getting-started/importing-and-exporting-data/
