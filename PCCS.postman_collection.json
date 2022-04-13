@@ -1,0 +1,438 @@
+{
+	"info": {
+		"_postman_id": "6b9e97c5-e3ac-4d95-9e28-36c4ae527cae",
+		"name": "PCCS - Prisma Cloud - Code Security",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login Generate Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json; charset=UTF-8"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{ACCESS_KEY}}\",\n    \"password\": \"{{SECRET_KEY}}\"\n}"
+						},
+						"url": {
+							"raw": "https://{{api-endpoint}}/login",
+							"protocol": "https",
+							"host": [
+								"{{api-endpoint}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "Returns a JWT auth token for accessing the Prisma Cloud APIs. To generate a token, you must have an access key and include the following values in the request body parameter — access key ID as the username and your secret key as the password. Prisma Cloud requires this JWT in the request header to authorize API access."
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json; charset=UTF-8",
+								"type": "text"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-redlock-auth",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{api-endpoint}}/auth_token/extend",
+							"protocol": "https",
+							"host": [
+								"{{api-endpoint}}"
+							],
+							"path": [
+								"auth_token",
+								"extend"
+							]
+						},
+						"description": "Extend a user's session. The JWT token returned is valid until the next session timeout occurs. This method requires a valid session token to be passed (token from a prior successful extend or login calls)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Repositories",
+			"item": [
+				{
+					"name": "List Repos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"type": "text",
+								"value": "application/json; charset=UTF-8"
+							},
+							{
+								"key": "content-type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-redlock-auth",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "https://{{api-endpoint}}/code/api/v1/repositories",
+							"protocol": "https",
+							"host": [
+								"{{api-endpoint}}"
+							],
+							"path": [
+								"code",
+								"api",
+								"v1",
+								"repositories"
+							]
+						},
+						"description": "Lists all accounts groups and cloud accounts in the current Prisma Cloud tenant. "
+					},
+					"response": []
+				},
+				{
+					"name": "List GitHub Repos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"type": "text",
+								"value": "application/json; charset=UTF-8"
+							},
+							{
+								"key": "content-type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-redlock-auth",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "https://{{api-endpoint}}/code/api/v1/github/repositories",
+							"protocol": "https",
+							"host": [
+								"{{api-endpoint}}"
+							],
+							"path": [
+								"code",
+								"api",
+								"v1",
+								"github",
+								"repositories"
+							]
+						},
+						"description": "Lists all accounts groups and cloud accounts in the current Prisma Cloud tenant. "
+					},
+					"response": []
+				},
+				{
+					"name": "Start a Scan",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"type": "text",
+								"value": "application/json; charset=UTF-8"
+							},
+							{
+								"key": "content-type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-redlock-auth",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "https://{{api-endpoint}}/code/api/v1/scans/integrations",
+							"protocol": "https",
+							"host": [
+								"{{api-endpoint}}"
+							],
+							"path": [
+								"code",
+								"api",
+								"v1",
+								"scans",
+								"integrations"
+							]
+						},
+						"description": "Lists all accounts groups and cloud accounts in the current Prisma Cloud tenant. "
+					},
+					"response": []
+				},
+				{
+					"name": "List File Errors",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"type": "text",
+								"value": "application/json; charset=UTF-8"
+							},
+							{
+								"key": "content-type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-redlock-auth",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"repository\": \"tom-github-tf-azure\",\n    \"sourceTypes\": [\"Github\"],\n    \"owner\": \"tplisson\",\n    \"defaultBranch\": \"main\",\n    \"severities\": [\"CRITICAL\",\"HIGH\"]\n}"
+						},
+						"url": {
+							"raw": "https://{{api-endpoint}}/code/api/v1/errors/file",
+							"protocol": "https",
+							"host": [
+								"{{api-endpoint}}"
+							],
+							"path": [
+								"code",
+								"api",
+								"v1",
+								"errors",
+								"file"
+							]
+						},
+						"description": "Lists all accounts groups and cloud accounts in the current Prisma Cloud tenant. "
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Policies",
+			"item": [
+				{
+					"name": "List Policies",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"type": "text",
+								"value": "application/json; charset=UTF-8"
+							},
+							{
+								"key": "content-type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-redlock-auth",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{api-endpoint}}/bridgecrew/api/v1/policies/table/data",
+							"protocol": "https",
+							"host": [
+								"{{api-endpoint}}"
+							],
+							"path": [
+								"bridgecrew",
+								"api",
+								"v1",
+								"policies",
+								"table",
+								"data"
+							]
+						},
+						"description": "Lists all accounts groups and cloud accounts in the current Prisma Cloud tenant. "
+					},
+					"response": []
+				},
+				{
+					"name": "Add Policy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"type": "text",
+								"value": "application/json; charset=UTF-8"
+							},
+							{
+								"key": "content-type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-redlock-auth",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n    \"code\": {\n        \"metadata\": {\n            \"name\": \"Ensure subnet is associated with NSG\",\n            \"guidelines\": \"Every subnet should be associated with NSG for controlling access to \\nresources within the subnet.\\n\",\n            \"category\": \"networking\",\n            \"severity\": \"high\"\n        },\n        \"scope\": {\n            \"provider\": \"azure\"\n        },\n        \"definition\": {\n            \"and\": [\n            {\n                \"cond_type\": \"connection\",\n                \"resource_types\": [\n                \"azurerm_subnet_network_security_group_association\"\n                ],\n                \"connected_resource_types\": [\n                \"azurerm_subnet\",\n                \"azurerm_network_security_group\"\n                ],\n                \"operator\": \"exists\"\n            },\n            {\n                \"cond_type\": \"filter\",\n                \"attribute\": \"resource_type\",\n                \"value\": [\n                \"azurerm_subnet\"\n                ],\n                \"operator\": \"within\"\n            }\n            ]\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{api-endpoint}}/bridgecrew/api/v1/policies",
+							"protocol": "https",
+							"host": [
+								"{{api-endpoint}}"
+							],
+							"path": [
+								"bridgecrew",
+								"api",
+								"v1",
+								"policies"
+							]
+						},
+						"description": "Lists all accounts groups and cloud accounts in the current Prisma Cloud tenant. "
+					},
+					"response": []
+				},
+				{
+					"name": "Update Policy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"type": "text",
+								"value": "application/json; charset=UTF-8"
+							},
+							{
+								"key": "content-type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-redlock-auth",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n    \"code\": {\n        \"metadata\": {\n            \"name\": \"DEMO-NSG: Ensure subnet is associated with NSG\",\n            \"guidelines\": \"Every subnet should be associated with NSG for controlling access to \\nresources within the subnet.\\n\",\n            \"category\": \"networking\",\n            \"severity\": \"high\"\n        },\n        \"scope\": {\n            \"provider\": \"azure\"\n        },\n        \"definition\": {\n            \"and\": [\n            {\n                \"cond_type\": \"connection\",\n                \"resource_types\": [\n                \"azurerm_subnet_network_security_group_association\"\n                ],\n                \"connected_resource_types\": [\n                \"azurerm_subnet\",\n                \"azurerm_network_security_group\"\n                ],\n                \"operator\": \"exists\"\n            },\n            {\n                \"cond_type\": \"filter\",\n                \"attribute\": \"resource_type\",\n                \"value\": [\n                \"azurerm_subnet\"\n                ],\n                \"operator\": \"within\"\n            }\n            ]\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "https://{{api-endpoint}}/bridgecrew/api/v1/policies/{{policy-id}}",
+							"protocol": "https",
+							"host": [
+								"{{api-endpoint}}"
+							],
+							"path": [
+								"bridgecrew",
+								"api",
+								"v1",
+								"policies",
+								"{{policy-id}}"
+							]
+						},
+						"description": "Lists all accounts groups and cloud accounts in the current Prisma Cloud tenant. "
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Policy",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"type": "text",
+								"value": "application/json; charset=UTF-8"
+							},
+							{
+								"key": "content-type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-redlock-auth",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{api-endpoint}}/bridgecrew/api/v1/policies/{{policy-id}}",
+							"protocol": "https",
+							"host": [
+								"{{api-endpoint}}"
+							],
+							"path": [
+								"bridgecrew",
+								"api",
+								"v1",
+								"policies",
+								"{{policy-id}}"
+							]
+						},
+						"description": "Lists all accounts groups and cloud accounts in the current Prisma Cloud tenant. "
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,1625 @@
+{
+	"info": {
+		"_postman_id": "c0ff4812-a9f5-44a8-9349-3a73cdb42a95",
+		"name": "CWPP - Prisma Cloud - Cloud Workload Protection Platform",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate (Login)",
+			"item": [
+				{
+					"name": "Login Generate Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"compute-token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"username\":\"{{ACCESS_KEY}}\",\n \"password\":\"{{SECRET_KEY}}\"\n}"
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/authenticate",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"authenticate"
+							]
+						},
+						"description": "Returns a JWT auth token for accessing the Prisma Cloud Compute APIs. To generate a token, you must have an access key and include the following values in the request body parameter — access key ID as the username and your secret key as the password. Prisma Cloud Compute requires this JWT in the request header to authorize API access."
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Ping",
+			"item": [
+				{
+					"name": "Ping or Health Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/_ping",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"_ping"
+							]
+						},
+						"description": "Checks if Console is reachable over the network from the host where you call the endpoint. If you get a response code of 200, the request succeeded, and Console is both alive and reachable."
+					},
+					"response": [
+						{
+							"name": "Ping or Health Check",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{compute-token}}",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/_ping",
+									"host": [
+										"{{compute-api-endpoint}}{{console-port}}"
+									],
+									"path": [
+										"api",
+										"{{api-version}}",
+										"_ping"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.17.10"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Jan 2022 18:46:34 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "frame-ancestors https://app2.prismacloud.io"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "OK"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Alert Profiles",
+			"item": [
+				{
+					"name": "Alert Profiles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/alert-profiles",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"alert-profiles"
+							]
+						},
+						"description": "Retrieve a list of all alert profiles created in the system."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Alert Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"jira\",\n  \"_id\": \"jira\",\n  \"jira\": {\n    \"enabled\": true,\n    \"projectKey\": \"TWIS\",\n    \"issueType\": \"Task\",\n    \"priority\": \"High\",\n    \"labels\": [],\n    \"assignee\": \"\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/alert-profiles",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"alert-profiles"
+							]
+						},
+						"description": "The following example curl command uses basic auth to add a Jira Alert profile:\n\nBody\nMedia type: application/json\n\nType: object\n\nProperties\n-: (string)\nConsoleAddress is the console address used by the admin to access the console, used for redirecting to the Console container\n\n_id: (string)\nID is the alert profile ID\n\ndemisto: (object)\nDemistoSettings contains the Demisto alert profile settings\n\nenabled: (boolean)\nEnabled is the Demisto provider enabled/disabled indicator\n\ndisabled: (boolean)\nDisabled states if the rule is currently disabled\n\nemail: (object)\nEmailSettings contains the email alert profile settings\n\ncredentialId: (string)\nCredentialID is the Email authentication credentials id\n\nenabled: (boolean)\nfrom: (string)\nFrom is the from address of the mail\n\nlabels: (string)\nLabels are custom label names from which the mail recipients are extracted, allowing to dynamically extract the target of the alerts\n\nport: (integer)\nrecipients: (string)\nsmtpAddress: (string)\nssl: (boolean)\ngcpPubsub: (object)\nGcpPubsubSettings contains the GCP Pub/Sub alert profile settings\n\ncredentialId: (string)\nCredentialID is the GCP Pub/Sub authentication credentials id\n\nenabled: (boolean)\nEnabled indicates whether the GCP Pub/Sub settings are enabled\n\ntopic: (string)\nTopic is the GCP Pub/Sub topic (used by subscribers to listen for messages)\n\njira: (object)\nJIRASettings contains the JIRA alert profile settings\n\nassignee: (object)\nAssignee is the assignee of the issue\n\nlabels: (string)\nLabels are the dynamic labels of which the value is based on\n\nname: (string)\nName is the static string field\n\nbaseUrl: (string)\nBaseURL is the JIRA address\n\ncaCert: (string)\nCACert is the certificate used to verify the server\n\ncredentialId: (string)\nCredentialID is the JIRA authentication credentials id\n\nenabled: (boolean)\nEnabled controls whether the rule is enabled\n\nissueType: (string)\nIssueType is the type of the JIRA issue\n\nlabels: (object)\nLabels is the labels added to the created issue\n\nlabels: (string)\nLabels are the dynamic labels of which JIRA labels are based on\n\nnames: (string)\nNames are the static strings field\n\npriority: (string)\nPriority is the issue priority\n\nprojectKey: (object)\nProjectKey is the key of the project in which the issue will be created\n\nlabels: (string)\nLabels are the dynamic labels of which the value is based on\n\nname: (string)\nName is the static string field\n\nlastError: (string)\nLastError represents the last error when sending the profile\n\nmodified: (datetime)\nname: (string)\nnotes: (string)\nNotes are the rule's user notes\n\nowner: (string)\npagerduty: (object)\nPagerDutySettings contains the PagerDuty alert profile settings\n\nenabled: (boolean)\nEnabled is PagerDuty provider enabled/disabled indicator\n\nroutingKey: (object)\nRoutingKey is the unique PagerDuty service id\n\nencrypted: (string)\nplain: (string)\nPlain is the plain text value (remark: marshalling to JSON will be converted to encrypted value)\n\nseverity: (object)\nSeverity is the PagerDuty's event severity\n\nsummary: (string)\nSummary is the PagerDuty's event summary\n\npreviousName: (string)\nPreviousName is the rule previous name, required for rule renaming\n\nsecurityAdvisor: (object)\nSecurityAdvisor contains the IBM security advisor alert profile settings\n\nauto: (boolean)\nAutomatic means the configuration was automatically provisioned by security advisor, and only notes should be created\n\ncredentialID: (string)\nCredentialID is the IBM security advisor credential\n\nenabled: (boolean)\nEnabled indicates whether the overbridge settings are enabled\n\nfindingsURL: (string)\nFindingsURL is the URL to which findings should be sent\n\nproviderId: (string)\nProviderID is the configured providerID (default twistlock)\n\ntokenURL: (string)\nTokenURL is the url from which security tokens should be fetched\n\nsecurityCenter: (object)\nSecurityCenterSettings contains the security center alert profile settings\n\ncredentialId: (string)\nCredentialID is the Security Center authentication credentials id\n\nenabled: (boolean)\nsourceID: (string)\nSourceID is the google cloud security center organization source ID (used to construct security advisor findings)\n\nsecurityHub: (object)\nSecurityHub contains the AWS security hub alert profile settings\n\naccountID: (string)\nAccountID is the AWS account ID\n\ncredentialId: (string)\nCredentialID is the SecurityHub authentication credentials id\n\nenabled: (boolean)\nEnabled indicates whether the overbridge settings are enabled\n\nregion: (string)\nRegion is the overbridge region\n\nroleArn: (string)\nRoleARN is the Amazon Resource Name (ARN) of the role to assume\n\nuseAWSRole: (boolean)\nUseAWSRole is a flag indicates if local IAM role should be used for authentication (username and password would are ignored)\n\nslack: (object)\nSlackSettings contains the slack alert profile settings\n\nchannels: (string)\nenabled: (boolean)\nusers: (string)\nwebhookUrl: (string)\nwebhook: (object)\nWebhookSettings contains the Webhook alert profile settings\n\ncaCert: (string)\nCACert is the certificate used to verify the server\n\ncredentialId: (string)\nCredentialID is the id of the basic authentication credential\n\nenabled: (boolean)\nEnabled is Webhook provider enabled/disabled indicator\n\njson: (string)\nJson is the custom json we send to the url\n\nurl: (string)\nURL is the Webhook address"
+					},
+					"response": []
+				},
+				{
+					"name": "Alert Profiles Names",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/alert-profiles/names",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"alert-profiles",
+								"names"
+							]
+						},
+						"description": "Retrieve a list of only the names of all alert profiles created in the system."
+					},
+					"response": []
+				},
+				{
+					"name": "Alert Profile Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "##This is from the GET Alert Profiles API call##\n"
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/alert-profiles/test",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"alert-profiles",
+								"test"
+							]
+						},
+						"description": "Sends a test alert to verify successful configuration of the alert profile settings."
+					},
+					"response": []
+				},
+				{
+					"name": "Alert Profile DELETE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "##This is from the GET Alert Profiles API call##\n"
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/alert-profiles/ID",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"alert-profiles",
+								"ID"
+							]
+						},
+						"description": "Deletes an alert profile entry by name. In the request payload, specify the alert profile name. This method has no response data."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Audits",
+			"item": [
+				{
+					"name": "Get Audit Access Logs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/v1/audits/access",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"audits",
+								"access"
+							]
+						},
+						"description": "Query Parameters\nallow: (string)\nAllow indicated whether allowed requests should be shown\n\napi: (string)\nAPIs are apis to filter by\n\nhostname: (string)\nHosts are hosts to filter by\n\nruleName: (string)\nRuleNames are the rules names to filter by\n\ntype: (string)\nType is the audit type\n\nuser: (string)\nUsers are users to filter by\n\nBody\nMedia type: application/json\n\nType: object\n\nProperties\n_id: (object)\nID is id representation\n\naccountID: (string)\nAccountID is the cloud account ID where the audit was created\n\nallow: (boolean)\nAllow indicates whether the command was allowe or denied\n\napi: (string)\nAPI is the api that is being audited\n\ncollections: (string)\nCollections are collections to which this audit applies\n\ncontainerName: (string)\nContainerName is the name of the container\n\nfqdn: (string)\nFQDN is the fully qualified domain name from which the audit originated\n\nhostname: (string)\nHostname is the hostname from which the audit originated\n\nimageName: (string)\nImageName is the name of the image\n\nmsg: (string)\nMsg is the message explaining the audit\n\nruleName: (string)\nRulesName is contains the name of the rule that was applied, when blocked\n\nsourceIP: (string)\nSourceIP is the remote agent's source IP\n\ntime: (datetime)\nTime is the UTC time of the audit event\n\ntype: (string)\nType is the audit type\n\nuser: (string)\nUser is the user that run the command"
+					},
+					"response": [
+						{
+							"name": "Get Audit Access Logs",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{compute-token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{compute-api-endpoint}}{{console-port}}/api/v1/audits/access",
+									"host": [
+										"{{compute-api-endpoint}}{{console-port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"audits",
+										"access"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.17.10"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Jan 2022 18:50:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1455"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "frame-ancestors https://app2.prismacloud.io"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "Total-Count",
+									"value": "78733"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T23:14:52.935Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T23:14:36.813Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T23:14:34.312Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [medium:3 low:12]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T23:13:55.956Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T23:08:52.918Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T23:03:42.86Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T22:58:38.887Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T22:53:33.843Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T22:48:26.81Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T22:43:13.865Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T22:38:10.861Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T22:33:07.86Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T22:27:53.841Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T22:22:48.897Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T22:17:39.967Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T22:12:30.943Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T22:07:19.912Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T22:02:12.907Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T21:56:58.067Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T21:51:49.107Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T21:46:41.929Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [medium:3 low:12]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T21:41:29.829Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T21:36:26.988Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T21:31:21.923Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T21:26:10.996Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T21:20:54.834Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T21:15:42.905Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T21:10:29.919Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [medium:3 low:12]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T21:05:24.877Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [medium:3 low:12]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T21:00:20.863Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T20:55:08.882Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T20:49:54.828Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T20:47:06.906Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [medium:3 low:12]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T20:45:33.981Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T20:44:39.927Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T20:44:08.948Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T20:43:53.02Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"ubuntu\",\n        \"imageName\": \"docker.io/library/ubuntu:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-12-20T20:43:50.317Z\",\n        \"hostname\": \"gke-zs-cluster-1-default-pool-cd673c54-wdzp\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 15 vulnerabilities, [low:12 medium:3]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"zs-cluster-1\"\n    },\n    {\n        \"containerName\": \"dvwa\",\n        \"imageName\": \"docker.io/vulnerables/web-dvwa:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-10-05T14:40:02.034Z\",\n        \"hostname\": \"gke-hasitha-lab-gke-hasitha-lab-node--04bbc4d1-wh31\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"hu-test\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: hu-test, has 314 vulnerabilities, [medium:123 critical:53 high:138]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"trewt\",\n            \"hasitha-test - Access Group (RBAC)\",\n            \"hu-gke\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"hasitha-lab-gke\"\n    },\n    {\n        \"containerName\": \"dvwa\",\n        \"imageName\": \"docker.io/vulnerables/web-dvwa:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-10-05T14:39:31.959Z\",\n        \"hostname\": \"gke-hasitha-lab-gke-hasitha-lab-node--04bbc4d1-wh31\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"hu-test\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: hu-test, has 314 vulnerabilities, [high:138 medium:123 critical:53]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"trewt\",\n            \"hasitha-test - Access Group (RBAC)\",\n            \"hu-gke\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"hasitha-lab-gke\"\n    },\n    {\n        \"containerName\": \"dvwa\",\n        \"imageName\": \"docker.io/vulnerables/web-dvwa:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-10-05T14:39:13.654Z\",\n        \"hostname\": \"gke-hasitha-lab-gke-hasitha-lab-node--04bbc4d1-wh31\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"hu-test\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: hu-test, has 314 vulnerabilities, [high:138 medium:123 critical:53]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"trewt\",\n            \"hasitha-test - Access Group (RBAC)\",\n            \"hu-gke\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"hasitha-lab-gke\"\n    },\n    {\n        \"containerName\": \"dvwa\",\n        \"imageName\": \"docker.io/vulnerables/web-dvwa:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-10-05T14:39:10.909Z\",\n        \"hostname\": \"gke-hasitha-lab-gke-hasitha-lab-node--04bbc4d1-wh31\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"hu-test\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: hu-test, has 314 vulnerabilities, [medium:123 critical:53 high:138]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"trewt\",\n            \"hasitha-test - Access Group (RBAC)\",\n            \"hu-gke\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"hasitha-lab-gke\"\n    },\n    {\n        \"containerName\": \"dvwa\",\n        \"imageName\": \"docker.io/vulnerables/web-dvwa:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-10-05T14:36:15.019Z\",\n        \"hostname\": \"gke-hasitha-lab-gke-hasitha-lab-node--04bbc4d1-wh31\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"hu-test\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: hu-test, has 314 vulnerabilities, [high:138 medium:123 critical:53]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"trewt\",\n            \"hasitha-test - Access Group (RBAC)\",\n            \"hu-gke\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"hasitha-lab-gke\"\n    },\n    {\n        \"containerName\": \"dvwa\",\n        \"imageName\": \"docker.io/vulnerables/web-dvwa:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-10-05T14:35:21.93Z\",\n        \"hostname\": \"gke-hasitha-lab-gke-hasitha-lab-node--04bbc4d1-wh31\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"hu-test\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: hu-test, has 314 vulnerabilities, [medium:123 critical:53 high:138]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"trewt\",\n            \"hasitha-test - Access Group (RBAC)\",\n            \"hu-gke\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"hasitha-lab-gke\"\n    },\n    {\n        \"containerName\": \"dvwa\",\n        \"imageName\": \"docker.io/vulnerables/web-dvwa:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-10-05T14:34:52.967Z\",\n        \"hostname\": \"gke-hasitha-lab-gke-hasitha-lab-node--04bbc4d1-wh31\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"hu-test\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: hu-test, has 314 vulnerabilities, [critical:53 high:138 medium:123]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"trewt\",\n            \"hasitha-test - Access Group (RBAC)\",\n            \"hu-gke\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"hasitha-lab-gke\"\n    },\n    {\n        \"containerName\": \"dvwa\",\n        \"imageName\": \"docker.io/vulnerables/web-dvwa:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-10-05T14:34:36.991Z\",\n        \"hostname\": \"gke-hasitha-lab-gke-hasitha-lab-node--04bbc4d1-wh31\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"hu-test\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: hu-test, has 314 vulnerabilities, [high:138 medium:123 critical:53]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"trewt\",\n            \"hasitha-test - Access Group (RBAC)\",\n            \"hu-gke\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"hasitha-lab-gke\"\n    },\n    {\n        \"containerName\": \"dvwa\",\n        \"imageName\": \"docker.io/vulnerables/web-dvwa:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-10-05T14:34:34.707Z\",\n        \"hostname\": \"gke-hasitha-lab-gke-hasitha-lab-node--04bbc4d1-wh31\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"hu-test\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: hu-test, has 314 vulnerabilities, [high:138 medium:123 critical:53]\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Seiji_Fargate_Collection\",\n            \"trewt\",\n            \"hasitha-test - Access Group (RBAC)\",\n            \"hu-gke\"\n        ],\n        \"accountID\": \"gcp-gcs-pso\",\n        \"cluster\": \"hasitha-lab-gke\"\n    },\n    {\n        \"containerName\": \"/twistlock_console\",\n        \"imageName\": \"twistlock/private:console_21_04_421\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-08-16T01:51:24.001Z\",\n        \"hostname\": \"ubuntu\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 33 vulnerabilities, [high:4 medium:3 moderate:25 important:1]\",\n        \"collections\": [\n            \"All\",\n            \"Non-onboarded cloud accounts\",\n            \"Prisma Cloud resources\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\"\n        ],\n        \"accountID\": \"Non-onboarded cloud accounts\",\n        \"cluster\": \"\"\n    },\n    {\n        \"containerName\": \"/recursing_hertz\",\n        \"imageName\": \"httpd:latest\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-08-16T01:50:42.943Z\",\n        \"hostname\": \"ubuntu\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 23 vulnerabilities, [high:13 medium:6 critical:4]\",\n        \"collections\": [\n            \"All\",\n            \"Non-onboarded cloud accounts\",\n            \"Seiji_Fargate_Collection\",\n            \"zs1\",\n            \"trewt\"\n        ],\n        \"accountID\": \"Non-onboarded cloud accounts\",\n        \"cluster\": \"\"\n    },\n    {\n        \"containerName\": \"/k8s_fndsec-idm-operator_fndsec-idm-operator-66f4d955b6-9r6ft_glb-pet-cd_aef7dbd3-e4ac-4af5-9d6b-3b2f046b9efb_0\",\n        \"imageName\": \"10.69.41.101:8084/fnd-base-images/ocp-os-java-msnext:3.0.0\",\n        \"user\": \"\",\n        \"type\": \"docker\",\n        \"time\": \"2021-05-07T01:07:16.218Z\",\n        \"hostname\": \"ip-10-240-168-101.ap-southeast-1.compute.internal\",\n        \"fqdn\": \"\",\n        \"sourceIP\": \"\",\n        \"allow\": false,\n        \"ruleName\": \"zsrule\",\n        \"api\": \"create\",\n        \"msg\": \"[Twistlock] Image operation blocked by policy: zsrule, has 44 vulnerabilities, [important:29 high:13 critical:2]\",\n        \"collections\": [\n            \"All\",\n            \"497073259366\",\n            \"test1\"\n        ],\n        \"accountID\": \"497073259366\",\n        \"cluster\": \"glbpet-c1d1\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "DELETE Audit Access Logs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/audits/access",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"audits",
+								"access"
+							]
+						},
+						"description": "Deletes all access audits. This deletion cannot be undone."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Audit Access Download Logs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/v1/audits/access/download?type=docker > audits.csv",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"audits",
+								"access",
+								"download"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "docker > audits.csv"
+								}
+							]
+						},
+						"description": "Query Parameters\nallow: (string)\nAllow indicated whether allowed requests should be shown\n\napi: (string)\nAPIs are apis to filter by\n\nhostname: (string)\nHosts are hosts to filter by\n\nruleName: (string)\nRuleNames are the rules names to filter by\n\ntype: (string)\nType is the audit type\n\nuser: (string)\nUsers are users to filter by"
+					},
+					"response": [
+						{
+							"name": "Get Audit Access Download Logs",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{compute-token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{compute-api-endpoint}}{{console-port}}/api/v1/audits/access/download?type=docker > audits.csv",
+									"host": [
+										"{{compute-api-endpoint}}{{console-port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"audits",
+										"access",
+										"download"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "docker > audits.csv"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.17.10"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Jan 2022 18:55:18 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/csv"
+								},
+								{
+									"key": "Content-Length",
+									"value": "32"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "frame-ancestors https://app2.prismacloud.io"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "no data\n"
+						}
+					]
+				},
+				{
+					"name": "Get Audit Admission Logs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/v1/audits/admission",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"audits",
+								"admission"
+							]
+						},
+						"description": "AdmissionAudits returns all admission audits according to the query specification. Minimum role required to access this endpoint: devSecOps.\n\nQuery Parameters\nnamespace: (string)\nNamespaces is the list of namespaces to use for filtering\n\noperation: (string)\nOperations is the list of operations to use for filtering\n\nBody\nMedia type: application/json\n\nType: object\n\nProperties\naccountID: (string)\nAccountID is the cloud account ID\n\ncollections: (string)\nCollections are collections to which this audit applies\n\neffect: (string)\nEffect is the rule effect which was applied to the review which led to this audit\n\nkind: (string)\nKind is the type of object being manipulated. For example: Pod\n\nmessage: (string)\nMessage is the rule user defined message which appears on audit\n\nnamespace: (string)\nNamespace is the namespace associated with the request (if any)\n\noperation: (string)\nOperation is the operation being performed\n\nrawRequest: (string)\nRawRequest is the original review request that caused this audit\n\nresource: (string)\nResource is the name of the resource being requested. This is not the kind. For example: pods\n\nruleName: (string)\nRuleName is the name of the rule which issued this audit\n\ntime: (datetime)\nTime is the time at which the audit was generated\n\nuserGroups: (string)\nUserGroups is the names of groups this user is a part of\n\nuserUid: (string)\nUserUID is a unique value that identifies this user across time. If this user isdeleted and another user by the same name is added, they will havedifferent UIDs\n\nusername: (string)\nUsername is the name that uniquely identifies this user among all active users"
+					},
+					"response": [
+						{
+							"name": "Get Audit Admission Logs",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{compute-token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{compute-api-endpoint}}{{console-port}}/api/v1/audits/admission",
+									"host": [
+										"{{compute-api-endpoint}}{{console-port}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"audits",
+										"admission"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.17.10"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Jan 2022 18:51:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "frame-ancestors https://app2.prismacloud.io"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000; includeSubDomains"
+								},
+								{
+									"key": "Total-Count",
+									"value": "5"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"time\": \"2021-12-23T02:47:07.026Z\",\n        \"ruleName\": \"zs - Privileged pod created\",\n        \"message\": \"Privileged pod created\",\n        \"operation\": \"CREATE\",\n        \"kind\": \"Pod\",\n        \"resource\": \"pods\",\n        \"username\": \"zsarwar@paloaltonetworks.com\",\n        \"userGroups\": \"system:authenticated\",\n        \"namespace\": \"twistlock\",\n        \"effect\": \"block\",\n        \"rawRequest\": \"{\\\"uid\\\":\\\"35943a8e-d376-45a9-a955-a742032854b5\\\",\\\"kind\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"kind\\\":\\\"Pod\\\"},\\\"resource\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"resource\\\":\\\"pods\\\"},\\\"requestKind\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"kind\\\":\\\"Pod\\\"},\\\"requestResource\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"resource\\\":\\\"pods\\\"},\\\"name\\\":\\\"nginx\\\",\\\"namespace\\\":\\\"twistlock\\\",\\\"operation\\\":\\\"CREATE\\\",\\\"userInfo\\\":{\\\"username\\\":\\\"zsarwar@paloaltonetworks.com\\\",\\\"groups\\\":[\\\"system:authenticated\\\"],\\\"extra\\\":{\\\"iam.gke.io/user-assertion\\\":[\\\"AK8TC8JjwWL6bqSMP/tsZgJWz6o3rSfvYLUXl9huQf3cyjKF47/HjFCXL491OTdyjcCa/tn78w+i9HmhaKpMrtQqoaEZMuA8ODmyffLI5ojMY3W0wxqbl0oonl7gWwu32eNNuDcXJcjya2FvFj2q+NcyIR1y6aI0j7DFzKwGgIxUImrUVUDqd9AXZQM6ZmhLHIB5Y0PvPhBifUJ+XzaRAy3EIpZqMbMyCNvqrGfiaTP9jmr+Ot5cq0jrxgTkNLn2mcJMlrKaSklTH/ZhBbbet3qQs/YmcOmbl9uBH0IB1gDVYZeahuyZXVsNJLyYaWmlrqTKUGijzPhlJwCAohjNTS8Vv2LH/itmK1iA0CEXZeg1OVT26EvyM3bAZxOmBzU67mJHvgVKbaWmkUAhjzWmB8lvYFFXXvNPH25Ejp45KM0HDfUnDERChsTJOKxs9eSFOgYEJZQOqv9zb1BKnNYR0XhwWSfyzrbEm2AnHo63YWgdAFQUr0g/+oZu4ssZQCgXxRvPLg3JzOxU0Z0dBq8iNNmvqUA30OpMS98nKDenHowPRU70QKEpbHuM6mSjtWvWiEGJiHi0enlyYZoh8TXUAMgUHIk/gkeku90PXZmUlSQLiRwQerDD8sgAcI8eFwBkUbxnsenYS+D4+bnaxjORQNTXuzaxRriYKe5D0ZSdipFZKDssiyxrfENzUf5RMN76L57PzCMtiWOXuFuloOSxpmul176/ERJ1/caMBpLc0DyOqFO0zSqzabn1qUm1SQOjJSmVLSv3vK7F4KWrF2TXLehQuUCf9pHYrPNz0vijRPen2iFa+O0oYUIEUFcML0UFmQ06tvVj0LqTUjrM8pvXxCKkoJOWzrZ08Ipy6jMw316frO7aIcTkQpE9YjtgVzyV4nl/lx0qEhZrAPPGgOrgvEZwm+Qob9CuHIB4aKhCebUkouyrNH0pMb/FB+KZS6gv5iVGV32GH13nB535BIAr55ORLomPHzcmLULPhi/B88sRyMq9fruoZQCT89i3FKKejH+z9mGTD10uOs1bwyzEFEn9rEAxdvrzq8ASZC/zCXgdKLyUJSg0/oo+NNdg32fTPXtBPBm7D8ZG+vPsxch/E/YP+5zRIy2CG+SfjJzx/z6OkZPOQ54q/YuIeaSEt97QJddjqZhhoQPbgvbvRAvr83vpyFFm/4GMtmQmcksugD99+uqcybEE/Y9ukEe2lQ8tx4RifMVS8y3+WgL11/kJmaZoMdXemLqEb3gg/iMl3khVZnYw54i4ymIf22sH6Zj+6wB9jDnd\\\"],\\\"user-assertion.cloud.google.com\\\":[\\\"AK8TC8JS6T0uolKnI7CY8ktKWsjSEB453ElhLx81+yPoRlfRQMEZYrovIp4z8DTpehzMGQeVbMSGjFCsmvE22EJhMr0muXxgekoyA1Xkl2O7swHudw6DdU032nfFgrOg1zH4pb1jzq5idFlWFsQvEmHgSBKkbPIWHjT2iRs0xTb5EN40E2Zits7VjFSxbJL2+r5djU/87+IlhNJFCEFuHixzgZyLYzLG9ogtFygkNUDel4JlfE4=\\\"]}},\\\"object\\\":{\\\"kind\\\":\\\"Pod\\\",\\\"apiVersion\\\":\\\"v1\\\",\\\"metadata\\\":{\\\"name\\\":\\\"nginx\\\",\\\"namespace\\\":\\\"twistlock\\\",\\\"uid\\\":\\\"929dc276-1e89-4fe5-82db-0c07bdc101fa\\\",\\\"creationTimestamp\\\":\\\"2021-12-23T02:47:07Z\\\",\\\"labels\\\":{\\\"app\\\":\\\"nginx\\\"},\\\"annotations\\\":{\\\"kubectl.kubernetes.io/last-applied-configuration\\\":\\\"{\\\\\\\"apiVersion\\\\\\\":\\\\\\\"v1\\\\\\\",\\\\\\\"kind\\\\\\\":\\\\\\\"Pod\\\\\\\",\\\\\\\"metadata\\\\\\\":{\\\\\\\"annotations\\\\\\\":{\\\\\\\"validating-webhook.twistlock.com/Validate\\\\\\\":\\\\\\\"false\\\\\\\"},\\\\\\\"labels\\\\\\\":{\\\\\\\"app\\\\\\\":\\\\\\\"nginx\\\\\\\"},\\\\\\\"name\\\\\\\":\\\\\\\"nginx\\\\\\\",\\\\\\\"namespace\\\\\\\":\\\\\\\"twistlock\\\\\\\"},\\\\\\\"spec\\\\\\\":{\\\\\\\"containers\\\\\\\":[{\\\\\\\"image\\\\\\\":\\\\\\\"nginx\\\\\\\",\\\\\\\"name\\\\\\\":\\\\\\\"nginx\\\\\\\",\\\\\\\"ports\\\\\\\":[{\\\\\\\"containerPort\\\\\\\":80}],\\\\\\\"securityContext\\\\\\\":{\\\\\\\"privileged\\\\\\\":true}}]}}\\\\n\\\",\\\"validating-webhook.twistlock.com/Validate\\\":\\\"false\\\"},\\\"managedFields\\\":[{\\\"manager\\\":\\\"kubectl-client-side-apply\\\",\\\"operation\\\":\\\"Update\\\",\\\"apiVersion\\\":\\\"v1\\\",\\\"time\\\":\\\"2021-12-23T02:47:07Z\\\",\\\"fieldsType\\\":\\\"FieldsV1\\\",\\\"fieldsV1\\\":{\\\"f:metadata\\\":{\\\"f:annotations\\\":{\\\".\\\":{},\\\"f:kubectl.kubernetes.io/last-applied-configuration\\\":{},\\\"f:validating-webhook.twistlock.com/Validate\\\":{}},\\\"f:labels\\\":{\\\".\\\":{},\\\"f:app\\\":{}}},\\\"f:spec\\\":{\\\"f:containers\\\":{\\\"k:{\\\\\\\"name\\\\\\\":\\\\\\\"nginx\\\\\\\"}\\\":{\\\".\\\":{},\\\"f:image\\\":{},\\\"f:imagePullPolicy\\\":{},\\\"f:name\\\":{},\\\"f:ports\\\":{\\\".\\\":{},\\\"k:{\\\\\\\"containerPort\\\\\\\":80,\\\\\\\"protocol\\\\\\\":\\\\\\\"TCP\\\\\\\"}\\\":{\\\".\\\":{},\\\"f:containerPort\\\":{},\\\"f:protocol\\\":{}}},\\\"f:resources\\\":{},\\\"f:securityContext\\\":{\\\".\\\":{},\\\"f:privileged\\\":{}},\\\"f:terminationMessagePath\\\":{},\\\"f:terminationMessagePolicy\\\":{}}},\\\"f:dnsPolicy\\\":{},\\\"f:enableServiceLinks\\\":{},\\\"f:restartPolicy\\\":{},\\\"f:schedulerName\\\":{},\\\"f:securityContext\\\":{},\\\"f:terminationGracePeriodSeconds\\\":{}}}}]},\\\"spec\\\":{\\\"volumes\\\":[{\\\"name\\\":\\\"kube-api-access-p27xx\\\",\\\"projected\\\":{\\\"sources\\\":[{\\\"serviceAccountToken\\\":{\\\"expirationSeconds\\\":3607,\\\"path\\\":\\\"token\\\"}},{\\\"configMap\\\":{\\\"name\\\":\\\"kube-root-ca.crt\\\",\\\"items\\\":[{\\\"key\\\":\\\"ca.crt\\\",\\\"path\\\":\\\"ca.crt\\\"}]}},{\\\"downwardAPI\\\":{\\\"items\\\":[{\\\"path\\\":\\\"namespace\\\",\\\"fieldRef\\\":{\\\"apiVersion\\\":\\\"v1\\\",\\\"fieldPath\\\":\\\"metadata.namespace\\\"}}]}}]}}],\\\"containers\\\":[{\\\"name\\\":\\\"nginx\\\",\\\"image\\\":\\\"nginx\\\",\\\"ports\\\":[{\\\"containerPort\\\":80,\\\"protocol\\\":\\\"TCP\\\"}],\\\"resources\\\":{},\\\"volumeMounts\\\":[{\\\"name\\\":\\\"kube-api-access-p27xx\\\",\\\"readOnly\\\":true,\\\"mountPath\\\":\\\"/var/run/secrets/kubernetes.io/serviceaccount\\\"}],\\\"terminationMessagePath\\\":\\\"/dev/termination-log\\\",\\\"terminationMessagePolicy\\\":\\\"File\\\",\\\"imagePullPolicy\\\":\\\"Always\\\",\\\"securityContext\\\":{\\\"privileged\\\":true}}],\\\"restartPolicy\\\":\\\"Always\\\",\\\"terminationGracePeriodSeconds\\\":30,\\\"dnsPolicy\\\":\\\"ClusterFirst\\\",\\\"serviceAccountName\\\":\\\"default\\\",\\\"serviceAccount\\\":\\\"default\\\",\\\"securityContext\\\":{},\\\"schedulerName\\\":\\\"default-scheduler\\\",\\\"tolerations\\\":[{\\\"key\\\":\\\"node.kubernetes.io/not-ready\\\",\\\"operator\\\":\\\"Exists\\\",\\\"effect\\\":\\\"NoExecute\\\",\\\"tolerationSeconds\\\":300},{\\\"key\\\":\\\"node.kubernetes.io/unreachable\\\",\\\"operator\\\":\\\"Exists\\\",\\\"effect\\\":\\\"NoExecute\\\",\\\"tolerationSeconds\\\":300}],\\\"priority\\\":0,\\\"enableServiceLinks\\\":true,\\\"preemptionPolicy\\\":\\\"PreemptLowerPriority\\\"},\\\"status\\\":{\\\"phase\\\":\\\"Pending\\\",\\\"qosClass\\\":\\\"BestEffort\\\"}},\\\"oldObject\\\":null,\\\"dryRun\\\":false,\\\"options\\\":{\\\"kind\\\":\\\"CreateOptions\\\",\\\"apiVersion\\\":\\\"meta.k8s.io/v1\\\",\\\"fieldManager\\\":\\\"kubectl-client-side-apply\\\"}}\",\n        \"accountID\": \"gcp-gcs-pso\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Resources collection 3\",\n            \"Seiji_Fargate_Collection\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"cluster\": \"zs-cluster-1\",\n        \"attackTechniques\": [\n            \"privilegedContainer\"\n        ]\n    },\n    {\n        \"time\": \"2021-12-23T02:46:27.461Z\",\n        \"ruleName\": \"zs - Privileged pod created\",\n        \"message\": \"Privileged pod created\",\n        \"operation\": \"CREATE\",\n        \"kind\": \"Pod\",\n        \"resource\": \"pods\",\n        \"username\": \"zsarwar@paloaltonetworks.com\",\n        \"userGroups\": \"system:authenticated\",\n        \"namespace\": \"twistlock\",\n        \"effect\": \"block\",\n        \"rawRequest\": \"{\\\"uid\\\":\\\"69f451f7-f7da-44d6-ba74-9a751b356908\\\",\\\"kind\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"kind\\\":\\\"Pod\\\"},\\\"resource\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"resource\\\":\\\"pods\\\"},\\\"requestKind\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"kind\\\":\\\"Pod\\\"},\\\"requestResource\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"resource\\\":\\\"pods\\\"},\\\"name\\\":\\\"nginx\\\",\\\"namespace\\\":\\\"twistlock\\\",\\\"operation\\\":\\\"CREATE\\\",\\\"userInfo\\\":{\\\"username\\\":\\\"zsarwar@paloaltonetworks.com\\\",\\\"groups\\\":[\\\"system:authenticated\\\"],\\\"extra\\\":{\\\"iam.gke.io/user-assertion\\\":[\\\"AK8TC8LCtYV7bKh9dT0dfEqsSfE+zxfWvZKnqUarrPeui/AeZKDUUEsbUTJ6FAkAMuX+n1q8ntZi0QpRZK4AmLM0RX/P6AJCcSyPzsUuwmviqgmP4gtuvsMfmmi+GxQy7Lix34iKC2eHsLV9Qaz+RO3P2cwh6x/Xdw2qaLrShupzv9K9tncZH/nc/HQuAcExgUTGPBEEBt0U2NooyEbyh5ar/z6rIuwCsAeSDrMB97OQZwoosqM7PkiV4BHvaOqNPKQrG4lsWNDTCQ1y1JL5yWtQ1JJjucJULtGoNTiftxzdhZ9kfKddnmTR42KYjUGHncEjH+/zHowhaAEmiKJhyAsds2J05VUH4X+kqMF+54GSmCd9YTi1ArkcAxSHFzPhSdeD1mXPdjT2qlcPeU8IoGQdA0vKBPINfUh1LlEtBJGaZOBXcNItL3ei5u4Jn32MN4K+NGWUE/tnHeA6ZtWwwM/d4OBNzixw8HUTSElU6c51s4fNkOEXLr952d+d5/f4YKzzdANqKT+M1vNDlLkcJP94n0D3jUc4c4cKJIKeV8pQAsscPGc6yphXcV6pP93hb6n5u6ITcsRzgS8vqByDnBcl02p1D/kMjGmkyIhYKW5Lzeb6LaDUqrV/kt67khQrLIVrnCVCRJ8myCg37yZ8eGVj9A4zafVko+IU8MYqewRBQ36M7iSBM1mx/kGwybKBaTgicYAOqswsVJdKhfcj8W704AQAy+1lXsvT9g5FRKHtieuNQruEh7cg6rMRtXFXPgk/r70eellTmUiUsK6WypSaHxtFU/3yv8EwfFA7pC/zBujXCyZE9hRgzHnFTQ0I8YB+u3Fb+bRTgBp/wxi4uYdU4xHgOfgy+t891RecTMFmZDcljeX9rmGja2CfrQFD6AvtMHii5YrwGLoeE9I5aTssjeV1eA43yIizhPN+SZTvG/IkkKx3e0PGhw1+62jv5K6QH7nn2R60rdE8dKt+yRnzefPRhp9HH5RsUm/T0zCwAeb25taEWYARfJ8Da2WRD0pXRJXi7lp1e+3NwFEdzYIXoCdjSfqBtftd0UNSIfFFe6jIHUUVLm3iF8J8NpYxrSeLaFOrVc/8NlbUO7SCb5gn8xEhkgDFOSc0g1hi7/4Kl+PHmbmTmydB8CYcKMRVJpc7Yhn/Wu0soYtsQDtiMdzpoRrt9UiPsZ6d/Ep7DnvWDtab/KKQElkbUIptMlhKqHZmzEBtvq9oIz/b226+OC0HvLUVcPUoYjbmJI1LS+PWoECAouftWu2E3nefO38Py9ZIFTfc\\\"],\\\"user-assertion.cloud.google.com\\\":[\\\"AK8TC8K8FQUHzn/mgoWrF+XLc8d61Uh6NZp+1paS+hi8tMvnePjTGm9m0kEz4tLlQQDQu2DjQbBtWnXtTSeCFu88+0vt9Nld4GJWXfFx4m+FSK7GQJ2lZtMQ1sNdx7mOVvGFr7faw8h/d013Mq/u6jYud7NndpX5EZes66v8CUPTPrAH7+0kHhQ2pTY3McGmIZ48Aw50mjkASbhHVbLNwyLcAzFporN6iHUdpXstSqo3G+CmP4s=\\\"]}},\\\"object\\\":{\\\"kind\\\":\\\"Pod\\\",\\\"apiVersion\\\":\\\"v1\\\",\\\"metadata\\\":{\\\"name\\\":\\\"nginx\\\",\\\"namespace\\\":\\\"twistlock\\\",\\\"uid\\\":\\\"cbcf6df6-1759-47b8-b404-f37ee61737c9\\\",\\\"creationTimestamp\\\":\\\"2021-12-23T02:46:27Z\\\",\\\"labels\\\":{\\\"app\\\":\\\"nginx\\\"},\\\"annotations\\\":{\\\"kubectl.kubernetes.io/last-applied-configuration\\\":\\\"{\\\\\\\"apiVersion\\\\\\\":\\\\\\\"v1\\\\\\\",\\\\\\\"kind\\\\\\\":\\\\\\\"Pod\\\\\\\",\\\\\\\"metadata\\\\\\\":{\\\\\\\"annotations\\\\\\\":{\\\\\\\"validating-webhook.twistlock.com/validate\\\\\\\":\\\\\\\"false\\\\\\\"},\\\\\\\"labels\\\\\\\":{\\\\\\\"app\\\\\\\":\\\\\\\"nginx\\\\\\\"},\\\\\\\"name\\\\\\\":\\\\\\\"nginx\\\\\\\",\\\\\\\"namespace\\\\\\\":\\\\\\\"twistlock\\\\\\\"},\\\\\\\"spec\\\\\\\":{\\\\\\\"containers\\\\\\\":[{\\\\\\\"image\\\\\\\":\\\\\\\"nginx\\\\\\\",\\\\\\\"name\\\\\\\":\\\\\\\"nginx\\\\\\\",\\\\\\\"ports\\\\\\\":[{\\\\\\\"containerPort\\\\\\\":80}],\\\\\\\"securityContext\\\\\\\":{\\\\\\\"privileged\\\\\\\":true}}]}}\\\\n\\\",\\\"validating-webhook.twistlock.com/validate\\\":\\\"false\\\"},\\\"managedFields\\\":[{\\\"manager\\\":\\\"kubectl-client-side-apply\\\",\\\"operation\\\":\\\"Update\\\",\\\"apiVersion\\\":\\\"v1\\\",\\\"time\\\":\\\"2021-12-23T02:46:27Z\\\",\\\"fieldsType\\\":\\\"FieldsV1\\\",\\\"fieldsV1\\\":{\\\"f:metadata\\\":{\\\"f:annotations\\\":{\\\".\\\":{},\\\"f:kubectl.kubernetes.io/last-applied-configuration\\\":{},\\\"f:validating-webhook.twistlock.com/validate\\\":{}},\\\"f:labels\\\":{\\\".\\\":{},\\\"f:app\\\":{}}},\\\"f:spec\\\":{\\\"f:containers\\\":{\\\"k:{\\\\\\\"name\\\\\\\":\\\\\\\"nginx\\\\\\\"}\\\":{\\\".\\\":{},\\\"f:image\\\":{},\\\"f:imagePullPolicy\\\":{},\\\"f:name\\\":{},\\\"f:ports\\\":{\\\".\\\":{},\\\"k:{\\\\\\\"containerPort\\\\\\\":80,\\\\\\\"protocol\\\\\\\":\\\\\\\"TCP\\\\\\\"}\\\":{\\\".\\\":{},\\\"f:containerPort\\\":{},\\\"f:protocol\\\":{}}},\\\"f:resources\\\":{},\\\"f:securityContext\\\":{\\\".\\\":{},\\\"f:privileged\\\":{}},\\\"f:terminationMessagePath\\\":{},\\\"f:terminationMessagePolicy\\\":{}}},\\\"f:dnsPolicy\\\":{},\\\"f:enableServiceLinks\\\":{},\\\"f:restartPolicy\\\":{},\\\"f:schedulerName\\\":{},\\\"f:securityContext\\\":{},\\\"f:terminationGracePeriodSeconds\\\":{}}}}]},\\\"spec\\\":{\\\"volumes\\\":[{\\\"name\\\":\\\"kube-api-access-4l4jh\\\",\\\"projected\\\":{\\\"sources\\\":[{\\\"serviceAccountToken\\\":{\\\"expirationSeconds\\\":3607,\\\"path\\\":\\\"token\\\"}},{\\\"configMap\\\":{\\\"name\\\":\\\"kube-root-ca.crt\\\",\\\"items\\\":[{\\\"key\\\":\\\"ca.crt\\\",\\\"path\\\":\\\"ca.crt\\\"}]}},{\\\"downwardAPI\\\":{\\\"items\\\":[{\\\"path\\\":\\\"namespace\\\",\\\"fieldRef\\\":{\\\"apiVersion\\\":\\\"v1\\\",\\\"fieldPath\\\":\\\"metadata.namespace\\\"}}]}}]}}],\\\"containers\\\":[{\\\"name\\\":\\\"nginx\\\",\\\"image\\\":\\\"nginx\\\",\\\"ports\\\":[{\\\"containerPort\\\":80,\\\"protocol\\\":\\\"TCP\\\"}],\\\"resources\\\":{},\\\"volumeMounts\\\":[{\\\"name\\\":\\\"kube-api-access-4l4jh\\\",\\\"readOnly\\\":true,\\\"mountPath\\\":\\\"/var/run/secrets/kubernetes.io/serviceaccount\\\"}],\\\"terminationMessagePath\\\":\\\"/dev/termination-log\\\",\\\"terminationMessagePolicy\\\":\\\"File\\\",\\\"imagePullPolicy\\\":\\\"Always\\\",\\\"securityContext\\\":{\\\"privileged\\\":true}}],\\\"restartPolicy\\\":\\\"Always\\\",\\\"terminationGracePeriodSeconds\\\":30,\\\"dnsPolicy\\\":\\\"ClusterFirst\\\",\\\"serviceAccountName\\\":\\\"default\\\",\\\"serviceAccount\\\":\\\"default\\\",\\\"securityContext\\\":{},\\\"schedulerName\\\":\\\"default-scheduler\\\",\\\"tolerations\\\":[{\\\"key\\\":\\\"node.kubernetes.io/not-ready\\\",\\\"operator\\\":\\\"Exists\\\",\\\"effect\\\":\\\"NoExecute\\\",\\\"tolerationSeconds\\\":300},{\\\"key\\\":\\\"node.kubernetes.io/unreachable\\\",\\\"operator\\\":\\\"Exists\\\",\\\"effect\\\":\\\"NoExecute\\\",\\\"tolerationSeconds\\\":300}],\\\"priority\\\":0,\\\"enableServiceLinks\\\":true,\\\"preemptionPolicy\\\":\\\"PreemptLowerPriority\\\"},\\\"status\\\":{\\\"phase\\\":\\\"Pending\\\",\\\"qosClass\\\":\\\"BestEffort\\\"}},\\\"oldObject\\\":null,\\\"dryRun\\\":false,\\\"options\\\":{\\\"kind\\\":\\\"CreateOptions\\\",\\\"apiVersion\\\":\\\"meta.k8s.io/v1\\\",\\\"fieldManager\\\":\\\"kubectl-client-side-apply\\\"}}\",\n        \"accountID\": \"gcp-gcs-pso\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Resources collection 3\",\n            \"Seiji_Fargate_Collection\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"cluster\": \"zs-cluster-1\",\n        \"attackTechniques\": [\n            \"privilegedContainer\"\n        ]\n    },\n    {\n        \"time\": \"2021-12-23T02:43:18.206Z\",\n        \"ruleName\": \"zs - Privileged pod created\",\n        \"message\": \"Privileged pod created\",\n        \"operation\": \"CREATE\",\n        \"kind\": \"Pod\",\n        \"resource\": \"pods\",\n        \"username\": \"zsarwar@paloaltonetworks.com\",\n        \"userGroups\": \"system:authenticated\",\n        \"namespace\": \"twistlock\",\n        \"effect\": \"block\",\n        \"rawRequest\": \"{\\\"uid\\\":\\\"8367179f-8826-4395-931a-bdc442a5daa7\\\",\\\"kind\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"kind\\\":\\\"Pod\\\"},\\\"resource\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"resource\\\":\\\"pods\\\"},\\\"requestKind\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"kind\\\":\\\"Pod\\\"},\\\"requestResource\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"resource\\\":\\\"pods\\\"},\\\"name\\\":\\\"nginx\\\",\\\"namespace\\\":\\\"twistlock\\\",\\\"operation\\\":\\\"CREATE\\\",\\\"userInfo\\\":{\\\"username\\\":\\\"zsarwar@paloaltonetworks.com\\\",\\\"groups\\\":[\\\"system:authenticated\\\"],\\\"extra\\\":{\\\"iam.gke.io/user-assertion\\\":[\\\"AK8TC8L7XVrMuxZn5rUuUa9JCu2sMH8zVhLdP4kcuPPbS5Lt3WXUiRR+DPpw5tNpVAG4/zdBeOiQuwNwWsL2h6tLiGHxj+NYrn+RPsqTQBM1yJiJTZV8XAs6saIAEVQHOZrJmqhoG7EQ4NwMfxv+vO8OAHz6OMoZbUAWGmNS5v4N0pFVWO2bz1JDkSIija6EgAJSwaPCOelpL7Kau27wQI5fubEYE5x+MVkSDrCC3BMf18slcneSmsYrDYF0FJHzWnMwrIskln+ThNbUVnBBU4+AnWum+rsqWU6FZBDsApK8vWKRRGluKfqj2APJ3tw2fy3mSEdNAJ45SnQjcJS9Mna6TeipdIcNHxLGWQBP6/6TCtJ6XzOprgXDJ+CH/g0nMFERPDS90IbYHnwW+xTUaj1+o37rIuRFQlwXsGF+/+a3229A+Zs9b/2q91wijYHBpqkPTUTiPH8sDtDYVvCIETvHHPqKUuyCW5QjH3pGUfKN0gVBKYuvMin2GOkEN7/kjTOgsPVRBvtvQAHsvKgsTvmEgZx50UtcocBCQENHPqB3zvAjBEfVTNZiwQkkqNOY81j+dtAc5g/407xQo/D+7WBGQ0djKHfs43z4sRFiT7iNGfHNdKiM1wnNSYa7HjIkjy9/AmcFz+QQkliTdTelTFU7eZPEGkbfHFFKX9F392/s4A2Hly0QBDvT/SdgPZN7cBlk2fEUMi7wcxPUQSp/tT0bZB6Lbn22Eda6IZc8JUP2J07xjXqjVxN1ZtGi5amIfNJYjhten/MZBD8aMNkU4qnOhT5OEGZT5Ld5TH2paf9BUVuvnbJpZFAkYqLSDF9iP6rXAsA4cdgveBvEalMMtsyO/Mp80eybz0zdNIDrb81MOnVqGCb9rR5CPQpE7lByrqgNjF6hknni//TPphFR8eMILbye6b6Z6KsRMBQSZNhv62fkYEl9hFzhlfZSrSQ6BOtznpYx/PB3QeNwEP0gaogse2g117DKjQLVcRdj2Gq/KZsRcFGB8V963a9DCuG4Mko+Ym7yO43yiUQBVqG2nAlYw9VpzsxXsQegPD6d+y5by9DqDuZ7oB4nREo8U4bvUHKrbdhTPbM6ujd3r/Nup4xRzZgIbTT1Nuv3/OzKxR5UCjv1QZvSLe42NaRu0JUBKXijjPU9e0NMV++n87RVYtJxzNfHF2XE4p90ResTI4Xt/jXFEJg3NtAxMIG9f3FDgO4ODqqodIR6aSdwxVdAD+yyBHwXyg6HDIycUcwSRYoJsf+tUtBOsF0tUVJzsMmq7NJw+pk=\\\"],\\\"user-assertion.cloud.google.com\\\":[\\\"AK8TC8K0NCpyzPsqbZ0lEWqDvmIqWyV+TvvtFG6ggoFobog5Owc20vZ/WTcYwl5VVnVgscvd0zk7NEAC4a3wAVY12UFP8Scd/cnymgCTpu4nIIQ766F9+fwJ+JX9223hh3SOrBQHPhdoo0LGta5wKdT9OVswFzI3geqBc0Ltn7wB7gFFCXCv+AfubxkXQ7S4Ujprs/oO7ccOedLmfe2VfVZzf8hs23+JCozc/0pe47taYeYHb6s=\\\"]}},\\\"object\\\":{\\\"kind\\\":\\\"Pod\\\",\\\"apiVersion\\\":\\\"v1\\\",\\\"metadata\\\":{\\\"name\\\":\\\"nginx\\\",\\\"namespace\\\":\\\"twistlock\\\",\\\"uid\\\":\\\"a88793b6-027e-4d6d-ae43-e9289e3ba32e\\\",\\\"creationTimestamp\\\":\\\"2021-12-23T02:43:18Z\\\",\\\"labels\\\":{\\\"app\\\":\\\"nginx\\\"},\\\"annotations\\\":{\\\"kubectl.kubernetes.io/last-applied-configuration\\\":\\\"{\\\\\\\"apiVersion\\\\\\\":\\\\\\\"v1\\\\\\\",\\\\\\\"kind\\\\\\\":\\\\\\\"Pod\\\\\\\",\\\\\\\"metadata\\\\\\\":{\\\\\\\"annotations\\\\\\\":{\\\\\\\"tw-validating-webhook/validate\\\\\\\":\\\\\\\"false\\\\\\\"},\\\\\\\"labels\\\\\\\":{\\\\\\\"app\\\\\\\":\\\\\\\"nginx\\\\\\\"},\\\\\\\"name\\\\\\\":\\\\\\\"nginx\\\\\\\",\\\\\\\"namespace\\\\\\\":\\\\\\\"twistlock\\\\\\\"},\\\\\\\"spec\\\\\\\":{\\\\\\\"containers\\\\\\\":[{\\\\\\\"image\\\\\\\":\\\\\\\"nginx\\\\\\\",\\\\\\\"name\\\\\\\":\\\\\\\"nginx\\\\\\\",\\\\\\\"ports\\\\\\\":[{\\\\\\\"containerPort\\\\\\\":80}],\\\\\\\"securityContext\\\\\\\":{\\\\\\\"privileged\\\\\\\":true}}]}}\\\\n\\\",\\\"tw-validating-webhook/validate\\\":\\\"false\\\"},\\\"managedFields\\\":[{\\\"manager\\\":\\\"kubectl-client-side-apply\\\",\\\"operation\\\":\\\"Update\\\",\\\"apiVersion\\\":\\\"v1\\\",\\\"time\\\":\\\"2021-12-23T02:43:18Z\\\",\\\"fieldsType\\\":\\\"FieldsV1\\\",\\\"fieldsV1\\\":{\\\"f:metadata\\\":{\\\"f:annotations\\\":{\\\".\\\":{},\\\"f:kubectl.kubernetes.io/last-applied-configuration\\\":{},\\\"f:tw-validating-webhook/validate\\\":{}},\\\"f:labels\\\":{\\\".\\\":{},\\\"f:app\\\":{}}},\\\"f:spec\\\":{\\\"f:containers\\\":{\\\"k:{\\\\\\\"name\\\\\\\":\\\\\\\"nginx\\\\\\\"}\\\":{\\\".\\\":{},\\\"f:image\\\":{},\\\"f:imagePullPolicy\\\":{},\\\"f:name\\\":{},\\\"f:ports\\\":{\\\".\\\":{},\\\"k:{\\\\\\\"containerPort\\\\\\\":80,\\\\\\\"protocol\\\\\\\":\\\\\\\"TCP\\\\\\\"}\\\":{\\\".\\\":{},\\\"f:containerPort\\\":{},\\\"f:protocol\\\":{}}},\\\"f:resources\\\":{},\\\"f:securityContext\\\":{\\\".\\\":{},\\\"f:privileged\\\":{}},\\\"f:terminationMessagePath\\\":{},\\\"f:terminationMessagePolicy\\\":{}}},\\\"f:dnsPolicy\\\":{},\\\"f:enableServiceLinks\\\":{},\\\"f:restartPolicy\\\":{},\\\"f:schedulerName\\\":{},\\\"f:securityContext\\\":{},\\\"f:terminationGracePeriodSeconds\\\":{}}}}]},\\\"spec\\\":{\\\"volumes\\\":[{\\\"name\\\":\\\"kube-api-access-l42hm\\\",\\\"projected\\\":{\\\"sources\\\":[{\\\"serviceAccountToken\\\":{\\\"expirationSeconds\\\":3607,\\\"path\\\":\\\"token\\\"}},{\\\"configMap\\\":{\\\"name\\\":\\\"kube-root-ca.crt\\\",\\\"items\\\":[{\\\"key\\\":\\\"ca.crt\\\",\\\"path\\\":\\\"ca.crt\\\"}]}},{\\\"downwardAPI\\\":{\\\"items\\\":[{\\\"path\\\":\\\"namespace\\\",\\\"fieldRef\\\":{\\\"apiVersion\\\":\\\"v1\\\",\\\"fieldPath\\\":\\\"metadata.namespace\\\"}}]}}]}}],\\\"containers\\\":[{\\\"name\\\":\\\"nginx\\\",\\\"image\\\":\\\"nginx\\\",\\\"ports\\\":[{\\\"containerPort\\\":80,\\\"protocol\\\":\\\"TCP\\\"}],\\\"resources\\\":{},\\\"volumeMounts\\\":[{\\\"name\\\":\\\"kube-api-access-l42hm\\\",\\\"readOnly\\\":true,\\\"mountPath\\\":\\\"/var/run/secrets/kubernetes.io/serviceaccount\\\"}],\\\"terminationMessagePath\\\":\\\"/dev/termination-log\\\",\\\"terminationMessagePolicy\\\":\\\"File\\\",\\\"imagePullPolicy\\\":\\\"Always\\\",\\\"securityContext\\\":{\\\"privileged\\\":true}}],\\\"restartPolicy\\\":\\\"Always\\\",\\\"terminationGracePeriodSeconds\\\":30,\\\"dnsPolicy\\\":\\\"ClusterFirst\\\",\\\"serviceAccountName\\\":\\\"default\\\",\\\"serviceAccount\\\":\\\"default\\\",\\\"securityContext\\\":{},\\\"schedulerName\\\":\\\"default-scheduler\\\",\\\"tolerations\\\":[{\\\"key\\\":\\\"node.kubernetes.io/not-ready\\\",\\\"operator\\\":\\\"Exists\\\",\\\"effect\\\":\\\"NoExecute\\\",\\\"tolerationSeconds\\\":300},{\\\"key\\\":\\\"node.kubernetes.io/unreachable\\\",\\\"operator\\\":\\\"Exists\\\",\\\"effect\\\":\\\"NoExecute\\\",\\\"tolerationSeconds\\\":300}],\\\"priority\\\":0,\\\"enableServiceLinks\\\":true,\\\"preemptionPolicy\\\":\\\"PreemptLowerPriority\\\"},\\\"status\\\":{\\\"phase\\\":\\\"Pending\\\",\\\"qosClass\\\":\\\"BestEffort\\\"}},\\\"oldObject\\\":null,\\\"dryRun\\\":false,\\\"options\\\":{\\\"kind\\\":\\\"CreateOptions\\\",\\\"apiVersion\\\":\\\"meta.k8s.io/v1\\\",\\\"fieldManager\\\":\\\"kubectl-client-side-apply\\\"}}\",\n        \"accountID\": \"gcp-gcs-pso\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Resources collection 3\",\n            \"Seiji_Fargate_Collection\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"cluster\": \"zs-cluster-1\",\n        \"attackTechniques\": [\n            \"privilegedContainer\"\n        ]\n    },\n    {\n        \"time\": \"2021-12-23T02:34:34.378Z\",\n        \"ruleName\": \"zs - Privileged pod created\",\n        \"message\": \"Privileged pod created\",\n        \"operation\": \"CREATE\",\n        \"kind\": \"Pod\",\n        \"resource\": \"pods\",\n        \"username\": \"zsarwar@paloaltonetworks.com\",\n        \"userGroups\": \"system:authenticated\",\n        \"namespace\": \"twistlock\",\n        \"effect\": \"block\",\n        \"rawRequest\": \"{\\\"uid\\\":\\\"bb47013d-5409-44be-a154-65207d571032\\\",\\\"kind\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"kind\\\":\\\"Pod\\\"},\\\"resource\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"resource\\\":\\\"pods\\\"},\\\"requestKind\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"kind\\\":\\\"Pod\\\"},\\\"requestResource\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"resource\\\":\\\"pods\\\"},\\\"name\\\":\\\"nginx\\\",\\\"namespace\\\":\\\"twistlock\\\",\\\"operation\\\":\\\"CREATE\\\",\\\"userInfo\\\":{\\\"username\\\":\\\"zsarwar@paloaltonetworks.com\\\",\\\"groups\\\":[\\\"system:authenticated\\\"],\\\"extra\\\":{\\\"iam.gke.io/user-assertion\\\":[\\\"AK8TC8LzW4rYZ3bR177cZ1FPE5Qb0S+uVdK2BAHjFoxhS/6i6aNkoxapPvcrULSbOThBlZDL2cwdXfpx1Ww+z6FgmRw8vYE+sy7BVGxHYnbHY2VMOqiXyxN3W3zN5xu3JpF2JnXgUBBAEfiofZ0VyT2tNXz0oIO0Yc17Ut1GsJvg38dkg44tDvpJTB29Wq16jPawfPeM0sDiCxFofH3iIHYMceAZazQrPHDmpHXL2jc3PEgqgFFQG3DjqAr8bZHs8IdY0w5wKQYEmepNdr040Z5V6NHPGeeIr6bOm6M8+NksGjTrCw6coMS9ePrYyb9srxZj8zuAXv5ekRzrUNvrQhC9TcXfJ9S9Fl9KmkVovRRmpeeMJuVSQbHMokNjFPTqc3R2ubaapu0TdoqE/X26MeDJ0DNEQHwTE+v2RVSCVNpEau73icv3VOwJodsgSozrFqeNrqYI1Yd19g4mGJm77NybFtngb1phNffpkEhcEUf25SuctQmTtqErbobBQz1A1qS92w0ErEdME8as5YXehEKjQjpJiOWAqd9X5ubmBcrffBe2B/3gAT0/QtYMjNHBV5bbxzcm3qR11x1JFf+0TRB4U9QbD7tgcpKknbVwduhHmmWk7g4hXsz42kl05ybXf3ezPX85eNwD5zAAWke4uS8u0ChNpgzznySJmGnYbUzAN3ljXiOaPV6TGJ1Gz+Faaz1/RGgwtqg1/XDKWDdFeIR/sy2CbKLYw01VLWpYngzVgCERSWOgiEuYMX+X7Qb+7UzvGhXfKHulJvGGCMxxr3OFQVysN40/3H/OSS7KnhTKn4qPuxOVwZusUYxjTF5kZpKRT6Xv3EeJ3cWdmKmo4M1VseefBZ/sOqU6S3GoiOZZDn4e04JLpb/LNlKm9A4g6ccUmrbFCJUTWpph//2e95eahZPaRMBl14Gc4cmwtNQmMo7c9fPq3WjJnHUhoungQpEB7YXfu60URdqAcTS2sFi7N6rwegi2lUuPi+X49QiDjP43Jp0/66G7EjoutR3oB447uj7CwA852AYabxQ9VVdfAskUV9W+4Vi4FFhr76hPnNXetebuo1YIDLHUeu0UdqgIryIsL67fHvm3FaYXLc+STJf04qOj35OFDQxmUmOlP3XRtaLKgDr2ayRESd7UiY8Uc1KzVuk3ZOlLrzLJYpoL9E+ZAG2p9fYgbbZr1LuqCT3DX/u5p7iVAFypJF8iy+cRLJnN80Ze+0mg2qC0ySC1hKufp/sGRl/l8wei+/JpLfvWY9FXmKIbviDVAA8HR/apScBB\\\"],\\\"user-assertion.cloud.google.com\\\":[\\\"AK8TC8Lyauc1ERN+fx/UD5QrJeMAECXFgPoTh/iLBpbOAUkJ6pNh1dHpc9YmgDfi7R04Zk5Jt31l8NgXZfX74fSMOY9AckZOtGcNQiK+pKYG03NfRO0s/jy0pjiGKtZO+mFSL20ejM4vKxKMsjls0X+m8gvNP9exm2s1bHc7GTm7mB+JJkyXzv5S03nOgFwDql6rSOzv7k3H66eHkSiDze+FeVJVfM1KkylLuHbzCZ4Zq6Dwp6s=\\\"]}},\\\"object\\\":{\\\"kind\\\":\\\"Pod\\\",\\\"apiVersion\\\":\\\"v1\\\",\\\"metadata\\\":{\\\"name\\\":\\\"nginx\\\",\\\"namespace\\\":\\\"twistlock\\\",\\\"uid\\\":\\\"d5a1da08-1948-487e-9589-83889df0f946\\\",\\\"creationTimestamp\\\":\\\"2021-12-23T02:34:34Z\\\",\\\"labels\\\":{\\\"app\\\":\\\"nginx\\\"},\\\"annotations\\\":{\\\"kubectl.kubernetes.io/last-applied-configuration\\\":\\\"{\\\\\\\"apiVersion\\\\\\\":\\\\\\\"v1\\\\\\\",\\\\\\\"kind\\\\\\\":\\\\\\\"Pod\\\\\\\",\\\\\\\"metadata\\\\\\\":{\\\\\\\"annotations\\\\\\\":{},\\\\\\\"labels\\\\\\\":{\\\\\\\"app\\\\\\\":\\\\\\\"nginx\\\\\\\"},\\\\\\\"name\\\\\\\":\\\\\\\"nginx\\\\\\\",\\\\\\\"namespace\\\\\\\":\\\\\\\"twistlock\\\\\\\"},\\\\\\\"spec\\\\\\\":{\\\\\\\"containers\\\\\\\":[{\\\\\\\"image\\\\\\\":\\\\\\\"nginx\\\\\\\",\\\\\\\"name\\\\\\\":\\\\\\\"nginx\\\\\\\",\\\\\\\"ports\\\\\\\":[{\\\\\\\"containerPort\\\\\\\":80}],\\\\\\\"securityContext\\\\\\\":{\\\\\\\"privileged\\\\\\\":true}}]}}\\\\n\\\"},\\\"managedFields\\\":[{\\\"manager\\\":\\\"kubectl-client-side-apply\\\",\\\"operation\\\":\\\"Update\\\",\\\"apiVersion\\\":\\\"v1\\\",\\\"time\\\":\\\"2021-12-23T02:34:34Z\\\",\\\"fieldsType\\\":\\\"FieldsV1\\\",\\\"fieldsV1\\\":{\\\"f:metadata\\\":{\\\"f:annotations\\\":{\\\".\\\":{},\\\"f:kubectl.kubernetes.io/last-applied-configuration\\\":{}},\\\"f:labels\\\":{\\\".\\\":{},\\\"f:app\\\":{}}},\\\"f:spec\\\":{\\\"f:containers\\\":{\\\"k:{\\\\\\\"name\\\\\\\":\\\\\\\"nginx\\\\\\\"}\\\":{\\\".\\\":{},\\\"f:image\\\":{},\\\"f:imagePullPolicy\\\":{},\\\"f:name\\\":{},\\\"f:ports\\\":{\\\".\\\":{},\\\"k:{\\\\\\\"containerPort\\\\\\\":80,\\\\\\\"protocol\\\\\\\":\\\\\\\"TCP\\\\\\\"}\\\":{\\\".\\\":{},\\\"f:containerPort\\\":{},\\\"f:protocol\\\":{}}},\\\"f:resources\\\":{},\\\"f:securityContext\\\":{\\\".\\\":{},\\\"f:privileged\\\":{}},\\\"f:terminationMessagePath\\\":{},\\\"f:terminationMessagePolicy\\\":{}}},\\\"f:dnsPolicy\\\":{},\\\"f:enableServiceLinks\\\":{},\\\"f:restartPolicy\\\":{},\\\"f:schedulerName\\\":{},\\\"f:securityContext\\\":{},\\\"f:terminationGracePeriodSeconds\\\":{}}}}]},\\\"spec\\\":{\\\"volumes\\\":[{\\\"name\\\":\\\"kube-api-access-22tmd\\\",\\\"projected\\\":{\\\"sources\\\":[{\\\"serviceAccountToken\\\":{\\\"expirationSeconds\\\":3607,\\\"path\\\":\\\"token\\\"}},{\\\"configMap\\\":{\\\"name\\\":\\\"kube-root-ca.crt\\\",\\\"items\\\":[{\\\"key\\\":\\\"ca.crt\\\",\\\"path\\\":\\\"ca.crt\\\"}]}},{\\\"downwardAPI\\\":{\\\"items\\\":[{\\\"path\\\":\\\"namespace\\\",\\\"fieldRef\\\":{\\\"apiVersion\\\":\\\"v1\\\",\\\"fieldPath\\\":\\\"metadata.namespace\\\"}}]}}]}}],\\\"containers\\\":[{\\\"name\\\":\\\"nginx\\\",\\\"image\\\":\\\"nginx\\\",\\\"ports\\\":[{\\\"containerPort\\\":80,\\\"protocol\\\":\\\"TCP\\\"}],\\\"resources\\\":{},\\\"volumeMounts\\\":[{\\\"name\\\":\\\"kube-api-access-22tmd\\\",\\\"readOnly\\\":true,\\\"mountPath\\\":\\\"/var/run/secrets/kubernetes.io/serviceaccount\\\"}],\\\"terminationMessagePath\\\":\\\"/dev/termination-log\\\",\\\"terminationMessagePolicy\\\":\\\"File\\\",\\\"imagePullPolicy\\\":\\\"Always\\\",\\\"securityContext\\\":{\\\"privileged\\\":true}}],\\\"restartPolicy\\\":\\\"Always\\\",\\\"terminationGracePeriodSeconds\\\":30,\\\"dnsPolicy\\\":\\\"ClusterFirst\\\",\\\"serviceAccountName\\\":\\\"default\\\",\\\"serviceAccount\\\":\\\"default\\\",\\\"securityContext\\\":{},\\\"schedulerName\\\":\\\"default-scheduler\\\",\\\"tolerations\\\":[{\\\"key\\\":\\\"node.kubernetes.io/not-ready\\\",\\\"operator\\\":\\\"Exists\\\",\\\"effect\\\":\\\"NoExecute\\\",\\\"tolerationSeconds\\\":300},{\\\"key\\\":\\\"node.kubernetes.io/unreachable\\\",\\\"operator\\\":\\\"Exists\\\",\\\"effect\\\":\\\"NoExecute\\\",\\\"tolerationSeconds\\\":300}],\\\"priority\\\":0,\\\"enableServiceLinks\\\":true,\\\"preemptionPolicy\\\":\\\"PreemptLowerPriority\\\"},\\\"status\\\":{\\\"phase\\\":\\\"Pending\\\",\\\"qosClass\\\":\\\"BestEffort\\\"}},\\\"oldObject\\\":null,\\\"dryRun\\\":false,\\\"options\\\":{\\\"kind\\\":\\\"CreateOptions\\\",\\\"apiVersion\\\":\\\"meta.k8s.io/v1\\\",\\\"fieldManager\\\":\\\"kubectl-client-side-apply\\\"}}\",\n        \"accountID\": \"gcp-gcs-pso\",\n        \"collections\": [\n            \"All\",\n            \"gcp-gcs-pso\",\n            \"Resources collection 3\",\n            \"Seiji_Fargate_Collection\",\n            \"trewt\",\n            \"tom-resource-list-all - Access Group (RBAC)\"\n        ],\n        \"cluster\": \"zs-cluster-1\",\n        \"attackTechniques\": [\n            \"privilegedContainer\"\n        ]\n    },\n    {\n        \"time\": \"2021-08-12T15:40:07.552Z\",\n        \"ruleName\": \"Twistlock Labs - Exec or attach to a pod\",\n        \"message\": \"Exec or attach to a pod\",\n        \"operation\": \"CONNECT\",\n        \"kind\": \"PodExecOptions\",\n        \"resource\": \"pods\",\n        \"username\": \"charlesianwarren@gmail.com\",\n        \"userGroups\": \"system:authenticated\",\n        \"namespace\": \"twistlock\",\n        \"effect\": \"alert\",\n        \"rawRequest\": \"{\\\"uid\\\":\\\"f64f5360-7f59-4d3c-a436-04b9970b57be\\\",\\\"kind\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"kind\\\":\\\"PodExecOptions\\\"},\\\"resource\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"resource\\\":\\\"pods\\\"},\\\"subResource\\\":\\\"exec\\\",\\\"requestKind\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"kind\\\":\\\"PodExecOptions\\\"},\\\"requestResource\\\":{\\\"group\\\":\\\"\\\",\\\"version\\\":\\\"v1\\\",\\\"resource\\\":\\\"pods\\\"},\\\"requestSubResource\\\":\\\"exec\\\",\\\"name\\\":\\\"twistlock-defender-ds-tgskt\\\",\\\"namespace\\\":\\\"twistlock\\\",\\\"operation\\\":\\\"CONNECT\\\",\\\"userInfo\\\":{\\\"username\\\":\\\"charlesianwarren@gmail.com\\\",\\\"groups\\\":[\\\"system:authenticated\\\"],\\\"extra\\\":{\\\"iam.gke.io/user-assertion\\\":[\\\"AK8TC8KRbfUBJKTkJsMDj05f/fo4OHc5njML6CMcHMisy+ETMQQXBronO7Pl80vQgsHepkfQGNP94LG0u6MxRQKyy9+Di51rzae89zEvNH9yGrO+JvH+9cUApYZRVcrnqFBaao8X2zOJ6B1UKsm1giit6mMQ/6kIH8xRsoT3LbxozkVYXQKX8PDN3J8WU+6Z7/qwJqu2RioemKKmuEXur+vOaVaVUdsWlNRQoHqum6Tsb8tO5ydq9jEOZlh3BOUjQWwnZjNFqDt9+HA9RQpG2oicYtrHHvEctnNMmXgpTfzEhpnSuCInJPtgydwZr4vvvIS38S7bWkBPOcdFrHzzSZBZiEPlbVahkllp13zGrL9Y9ziCFuiO+Rm937/EPirzEeVjK4GyYgAlcDfPyT7gBL6ExQNG06gyeQ4BA8tv436anfVLHxWOywYq3cpXpWojvXcpOKFfYCH9269OxoxVWR1DPESThbmf9hHU/vXXkHTISrtFPULZ6RU5FBHSfgWuxZAanONYK4I6rAOf20ioRXKKtE4AY94RgztIkW5Ortaz0sCV4E5g48lZs2pxhodijMEuNOskt4YnMK3B2/EoxB3NQ4JfxOHiPVVhuIkveaCp5a/5R8akh6bQADB2bfCPvSB7TAigzM6sR/ovEe3c2IuQzlZdkvVZWoRhLgj/VIHCN8V2Z/Jy0NhEvX8kMvBnuiHEfAFze6WpOh5vws/AgCw8X03imnsd7Y8FSv3U5l9myGFIlD+dKNmbgCQl65CCwUfkZniaJjYxr3NpeftBbRfuNa8//vUc9eE7Pafu4jW/c6qgonSRFFT9iRMEi335a/QIqpsu+679kKfMN9PAn+OcW/eLUvvsxYov0WWEdEr9hLDTzEVLTflF4JZR9iZDHKbG/X6MN2xWruAl6DcUWuqOdnOMxXat3VZfMAg/Zsv35/b1e28ATVxwKSZZtXrVixZalpIMxaGT6rWR4sHZQilcpZLNj0AvKz3DHhSUoH+y7SNfe2Gpvh/eAnUs6nVneDckIGN32dZeeYd8NfD12fRLaAcD0xoegDZNhMknNNuFqynVs5iQp8jOriT5Y1iEtqEo6fksEzpVa2CaEqT1+nx76jSd+d61vOTORa2i0F5HX2f+bZgc3+UgpUWOukVBxrQHechRFCSeVKyJH9bhYpm8P1HIFrcq3CVpaxUYmEte+VaJJKzbjHMsOO/mZ0B9Hsg5K53cspU1GsW/Ov3V7Xnl6b07xUW82ip93Y+wXm6SL6MgYJxkvqkN5M0Tg9fqt6g5H7yesf4CXaQ4g2nZTLHUFT2nqT+lgBdBvsY25SCaWryvVHiQ/JaVsJ8+tO8PakQu1prMkHPhm1SlxjHpTnutH/VqgxOm2RPA1xMsBZLr3CbRLkD/P/TDauoXrapcXZZia6vz3N3uiz/09QFkWVzAPeBTnejkn0EKboGAvKASlT7Q/hyz+TFxzUznNcb389XBMn+HqjcqLJX32zX/hfoD89A2uoRCalLH7j1LT+n5V08S4uJgMW+HdHnNTOXIT5UCKctQ5Nk1poC3zX8mim6xD8PteNK68N9YiUG4cjBP3Hqpljfsl1iPL+Ik58KFODVH20jfAVzS92ezTObLB0jboKeWflLnadQvrGffzGv66G5eFXQK9xmyCrAkqN6yLR1JO4L3NQ4ymcnP5Raptj602m2VY+QfcL2W8J+RYWex8F2XzwtypHk19TBspeGg+joz9FJMEUCAo0sRSahvageAWm0oUZsOfyHkBpJEoHPfOXm4cZoWWh2SKXyqTGSgbhvQ/Mv6ya/t0LgsZtOeEyYJS7iuV8pGuFjNbWOc9PFxFMov7+AAkH1Ov2NgniOFAIgYFFYEtTNI+f7XkY/LaNfS7iDnrkCtNf+nTwNqm1GjkMUdo1DA+FnG5cHQHrWfdvXoFnZIT0D/IPRkJQvvE0r4vlbRzcWioL+whRz5YWYgxaEUQiArDEF5BpTzMcmehJY/KhJ4SaBxTE5SubxTlHb0nbtD8LIKS9niT7MonVc5rsujcoW8muc+ucb8Suft1lgI9aMj9MYZdpIO2lozKbVDqNmNFKdrrdTpHc6pgnN/E3XFcZu/hCkP0xLKb2baXOocA7c1z59mzP/EDhiNflxCFGrH+/NmOFCtnpyJyIPSH5aOFoxNsWOhkMi6hFdWJPX2GH8eIUq2eFt3Mdpfp4hV6SRC+lM8nJExtGDvl9K6HcTAEGkv0m1cW7YeobdgknTLD7kBs5eS3n+ZooeQ/1nx9qk68nrQ5BHuBjkfz2wA5BPzYoeW2kgcBVegKeVgd7RJ+octGecGD1uN+nGZQJ9+kRXG69NFf74OGIuFqsNvQ7DTb8twFxd3T710mRt06v4dMl6VqHXe/SYDIhjOPvbRRCeOGDN69EM4ycyofITIva8n4PhY4hCFZMMQuXUGDkg2ciI+A7qinXAxkAOIpDlu4ax2qAtscvcKGxAuZEFHPIBpdYkF5gcC7QoBGlrGu8zbvibd1HCqoeofGAJmhEy/eC7eLMuIBPqfSERo08WJ+eaOpizwsY7AUFpGEcjOdCfIe9s6TBDGTa8i2UV0J9OehxWiHcMR/+AWqdFfryC+WZLd5852mp5XmobsPy251XXMx1MtKT7BzXDOOuP/B7WGv6Dw9UICXTf8GwX7KfmvSQNPs2XKEH25RHhRGdGn/OfUpoxbgHaaszzJ5lUit+PVxDep9hkQ34TgnFoZ7ZI9Wr+w8INHPx9jCebu1H7tmyGUeryNp68VJyPH++507R8aNk2TzYy/+9dypXrGcxzP2FE3hdHNu4Z4d/GGk6ihwWjA/Je3pfLvh4k38fkXCwHlmJN1IW5DtkTlaeSuslMeTACin2jnWfmEVBlplXsfRquBUH7Yc4FQA6sfgasZ56xiR1T+UNIop3yMsi53rpEaGcGPQFn4+n9B/xv0yxNc2iLLOh1PBzszlQPi/D4Mk+s0Tctt5JAB3QBdAxGfr3PUBaBTEnw6CgJbWS7El0sTnioY5120pcZIdqRdbkgRFccnY85QuA+7n9zBA/YLk8Tp2nQfEZr5g/5N0aIVCIAjw40bzZdAv9WxkKTBz2lFCc8J4NTNDCUNtK7iaE5esK5L0O4EI4RzE34u0oTk4E+J6TECgVTK+cWkh1Jj+EnRrtUeeD+zMAqgE4jNxInfB5mTIX4SVAvmyV0KkGddhz1ZccZNm/aTJ5DWqoHDUjdvUw3/K4bviIzGZrCLdqX3JYimZFz97yMlA8wwzGKva7UvI0/BuJxvQHcti6YNUaie8lYEI1dY7obDKSfqKsLuHW61cI6ezHQ8Q/wjZZ1IbLQ4mR0r9zhymohokS+TWVjoiDT8H7hwOaP5nMttqXNdxR7xfzom1UmVB+YEIE2ythVLDSpy7jgQcDy7idOuT4BzY7vjUH8kELUHVoA4OyJAJiOjZIAS+daaDRKGjb4EWg7qvJ/5v2wqApw5aAuykYHBJbTuBis7MCA/KIhdQV/7elaA1Ok483dDMClOP88a8ZEfO1vwUmDYQgeMXrv/JIwPWimRkQBnXlz6/RS0H3arvizl4/guLNg6dudP7FIpoWjVITNp3VXzENuzq/w/UsE5SL+Zw1xlm4yMPSDgJ+/xG35Syw9E9HeC2phcTNMKbES4lY4y3ya0H8J1OMd4xPCa0TRpODvRYTvyhOAWxVZlhTBDOa+lHyG1ZK7gGvo57qspbakPtqFH4mWtwqcCNnPDH3CRxHQv4bNxH6r5zufvhD3GzF6WD1qz83cKFVcTHiQK/sqJFk8iS/2LoEdSfIrP01+PT/YwcbAOS8xvE+H96CAXmIjPWbMJS7b8SahYh218obB+z0J2nIPpMb9lzBjR5pCdvgOg3Y4S3xT28gwrIL6YIZjpQRXrXvTOKAusoM7cAH8082YtVUViH24bJfFPbvQ9qdblVMwyQHTQpz8GCsZd/f8HgeNnMBbtCORsI90hwcAdnTEeG0NEywVpKPCZF4o2U2puu+VeTYqQ+ja5jsWQxHVpRli8Z/3szl0f39DwL+408c66OyC8HQ+3NWceXTqVfJEe33uR8+/yDne/y7bpXL5Q0DGGPb5zDda0gCyiB1qiEF4uKIMM91NGlzqlgxttR3u5XAcGs8AEO7/JEUh8YKY5K8C60283V+Votk12aIOa33+KcK8qk3GLLumUpnr/gABECQZYlbqN5jQPRGA327nKmRKqzNErb2p+MLmqt+zCs+DxkLtF4yEZDksMpL8h5Leme1qA18sGB5MQ7Sdvx0FrFO2L/f8ce+gvAQwnvi1aXjeiNQRYnJmr6XGFEx3IyEGuhGAiY4MbFA+wwwG0cb4uBH1UnsdcUVRW5VnNOti5z6TV8Zs0dxR5/iWmECfwdfK4JjwBa/DuZ+/VZxCnCxgR5c+kO/f25Zgtcql17/eLowAsHcFAlon9nly3Wgwgd9M8IN+edY4eojGkcF2j2BiD4qC8oZkcUfUWokcKrXOY9m1La2xUdI+JQcFccHM9L+/3ZsXLnnm3rv8SZeXeTmWhh+m+yCZRlZzJF4ot2BF8pFXsba74T+Drq2iOwYzg9hO4aQXpgPZJs+ADyPlxgiICvdGtkIgA854vRZ1/gBo+HTZ3BnSNLTGvm+t2TKPo6od/oz593Qq6o5mr76utXCUWZkwo2SxVcNNloT8Ym7bdZ/pm1hKORTXsUbEEngRA+Fo5Qjap6mEN+93AK1tsh9VpVieP62JFHyKCLOq49V6zZt1UzVS0tZQ/3n7cq7EmZeXtNsBDjwVI/6zbbtYQH3kJEEo9HkswxWsFvKZKPn5ICw9ecIUYTWJGFEdhKlUe0dAR+1Uu5wxHoyvJOJLq9ugYyNHONllNNfJCKAKYCQXqGu2U44ymbm9nQPG7TRCPcs2i4YfbvFV+LFXnC5rZhTfD6SH1H3p32pGb8vLqKyzT+eITAfgpHukeH7YpTiqiEpaPH1U1OxtPdvmmqyf1KvV5Z8yWswAdhZv+9OUDFc1ekSM/zcG9JaFozGQUkXjIpWVLBtC9QpOnsop0ZfWhdUTUmYeBzlZhjp7jo1s62+FRZnf3Pm5+LRu7I+p979OxunqG7Q+WPwa6Qf7MpEGY8KdhnU/otgE2QpJoIWIXG3/shknpZFZfeZRI+PmMnjDbz4Vjz5MWUxEKAs6qFFNt+FtIjQDwwBoxfQ4yy8A3TmyrVRxl24AWnlm1VCRdJstAJWRV0GWtI7g2w3ztNuMqOPPbw5nNiROwhm3lhS+rJRe0b4Byz4ze5DapZ/BChmsz0XM15QwzbVhqoHcJ06bAko7IcyUXgClx+0eebnELMH048Gx1J4yuF75z2gGI+t+P0Wx/oeRISO6WiKzG8Z4gQiYHIOmUwWk+M/mEzisapV/9CZ425oARsCR8APnDb/DjeliPFv4SnUJcey3mrgdV7f+KJMk6C++uZ0SqbbpH8Em+jdCCr4QL0rp65My98PsrEJj2V+0b2/IWWO+XgkOyON9Iw873+Jh1xSuOLH70H5S8MNZAQ2TruRCLDEtO0Ag2eV6YiAfBw+Vsc6BYWJQ8bKiH5aPKo5Q/Jy3vbY9kU8/4eR0zVm7nH9p9LfLewJ1yldblutdTmZ4uncP1fsXV0/vAZKQqC/Is/mImnIjAhtBygRFseDflS8Ia65AC1wU0f/MdtEba6za2PQdzmTlsNiR4nFpmGAds9hClpgfintqq8S7gG2iRp6xEaKdPuEbIsGPZBi57nYnTASDYynpjd3Q1grQIE1TVk9ITzHF7usBim2+4pwV2kPUQNLlZgwzTdRz41ES7lv+u2s00ggynjXcVBPXzQPVN/UsSVDoxv2owR2nsWi7iIQS3JlIYe6Bvz5FUw8gGEeDyPoU01yNPGw34QHWdg75h56AqYEbsHIXDD4dvZSVhFw2i4Hfav0C7K16TDYv9IYt3iU6FGgC2EPYFBM0LfoChZ1am8bNBlA+sj0p+tzIH3fAdlnHKXlqLwMBirOJLogXk5TU/V0TOjPE3pV6qv/HfQywNflN789YIjsMGTSIzDtXWhOHsHntWvJND1Xl0AgjAFl1xMJ03T7vG7MDwXZeyesOKJTqkf74gV6z7t805yf9Qp5QwJ9hH5QTNRu3P6kUsoiGSt2zSECMyk8O4zSGmLuwDrDUaq4BXVul5vY0SDyEoqsJgtoFm2J8S0PwEdaLKNR/VUSwxDNotTRgvv0Lrs1PpcK2zqFV2AS0WyFxTchgzniWLFuKN2L9+V6KQ15hFU/S1UL2U/9D47YtYG5/wJe9BJoDwi+2X1A1Wk3Ccug87c+jY57J8NhHbahX/V97UvlTPutKTEAfzXYYbAXY62J8/rGWUqV2/mkPdcUF0jnLjP66U4/8OYQ1egeavndn1sLPrvv4GwLatHLH0CDBemKd85EdO5O+ccR0saqKjH9mzSaKi/nUkMQXevaiD2V5DtEsC0MHyxuz2xMgKGWX7vHiX6TJF9nWF4+FlfCPFRPZ0/ucO2pTmmEmQKBUTcn3AtQ9lvHC1sFJny4hBgIgwO9xkmVRRZNGMmCE3H0AvmXwD3udaORdtyVHkperah7oE9/X6liH0mmvOsh1oOYvkmohipT5/Ec4l1q6jBnfE9DM+CCyDjbgWK3t2ryG7S9sD3pyzpo6rp+hRVwfX32xmXwh5XTiSKfU/gfBpq8e9kxTXZU4gpMOE4Z8b9txOGx5kWJ9jQyV7oaeWDt99Hygi4qhDvS3JpU8pnRaZRtRK9fDTuSCZVM6kwlwqU4OX04CobgOtU/jZx4+TpBGIC5ItAShvnysZ2+krZgmYK240EBZQCpMtHBCExvuxWuT9NuCwoHtA8MA0tG4E8MuKZs0FuS8CQ/sNoZLkWFb7Odn80yhFIB/7rsE+QDxB3CaCRAd+jHY641Kxry+44LVkJZHiEaRtHfwC4fjYKgvmBjqUNQMtfwaKyIsJ1Ou1/ciEuWLiEJbbicj7vRTY6UZvJgE=\\\"],\\\"user-assertion.cloud.google.com\\\":[\\\"AK8TC8J140JLlNv2hZuPFBPrBL2aJDAB6Bm+wMJdebpZlEzwB4AjyRz7vcJksA819IIlH9r1MgLQtooAbBO13EuTiYrOKh5f+AOO2L/CPrbYviRnGGUNfViXKzQVq37JtjyWI2mCoCJALpU+l3BZkskTxZ28AKQT8nqWV6wSd6aAjlKEMHC47YnwYeL4SIsaXLvLZpjMbJWv5WGMV/d7xHlUvHNgB56sx/HTyM3MlIkILk/W\\\"]}},\\\"object\\\":{\\\"kind\\\":\\\"PodExecOptions\\\",\\\"apiVersion\\\":\\\"v1\\\",\\\"stdout\\\":true,\\\"stderr\\\":true,\\\"container\\\":\\\"twistlock-defender\\\",\\\"command\\\":[\\\"ls\\\"]},\\\"oldObject\\\":null,\\\"dryRun\\\":false,\\\"options\\\":null}\",\n        \"collections\": [\n            \"All\",\n            \"Resources collection 3\",\n            \"Seiji_Fargate_Collection\",\n            \"trewt\",\n            \"Cwarren GCP Collection\"\n        ],\n        \"cluster\": \"34.71.187.204\",\n        \"attackTechniques\": [\n            \"execIntoContainer\"\n        ]\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Authenticate Client",
+			"item": []
+		},
+		{
+			"name": "Backups",
+			"item": []
+		},
+		{
+			"name": "Certificates",
+			"item": [
+				{
+					"name": "Certificate Settings",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/certs/service-parameter",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"certs",
+								"service-parameter"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cloud",
+			"item": [
+				{
+					"name": "Get Cloud Discovery Results",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/cloud/discovery",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"cloud",
+								"discovery"
+							]
+						},
+						"description": "Returns a list of all cloud discovery scan results."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Collections",
+			"item": []
+		},
+		{
+			"name": "Config",
+			"item": []
+		},
+		{
+			"name": "Container Scan Reports",
+			"item": []
+		},
+		{
+			"name": "Credentials",
+			"item": []
+		},
+		{
+			"name": "Custom Compliance Checks",
+			"item": []
+		},
+		{
+			"name": "CVEs",
+			"item": []
+		},
+		{
+			"name": "Defenders",
+			"item": [
+				{
+					"name": "Install Bundle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/defenders/install-bundle?consoleaddr={{compute-api-endpoint}}&defenderType=appEmbedded",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"defenders",
+								"install-bundle"
+							],
+							"query": [
+								{
+									"key": "consoleaddr",
+									"value": "{{compute-api-endpoint}}"
+								},
+								{
+									"key": "defenderType",
+									"value": "appEmbedded",
+									"description": "Available options: docker, dockerWindows, swarm, daemonset, serverLinux, serverWindows, cri, fargate, appEmbedded, pcf, serverless, dcos"
+								}
+							]
+						},
+						"description": "Returns the certsBundle that Defender needs to securely connect to Console."
+					},
+					"response": []
+				},
+				{
+					"name": "Defender Summary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/defenders/summary",
+							"protocol": "https",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"defenders",
+								"summary"
+							]
+						},
+						"description": "List the number of Defenders in each defender category."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Demisto Alerts",
+			"item": []
+		},
+		{
+			"name": "Deployments",
+			"item": []
+		},
+		{
+			"name": "Custom Feeds",
+			"item": [
+				{
+					"name": "Customer Feeds Malware ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"name\": \"malware-sigs\",\n\"feed\": [\n    \n{\"name\": \"rule CORE-2019.4.5220.20574-SolarWinds-Core-v2019.4.5220-Hotfix5.msp\",\"md5\": \"02af7cec58b9a5da1c542b5a32151ba1\"},\n\n{\"name\": \"rule Solarwinds Worldwide, LLC\",\"md5\": \"08e35543d6110ed11fdf558bb093d401\"},\n\n{\"name\": \"rule SolarWinds.Orion.Core.BusinessLayer.dll_1\",\"md5\": \"2c4a910a1299cdae2a4e55988a2f102e\"},\n\n{\"name\": \"rule SolarWinds.Orion.Core.BusinessLayer.dll_2\",\"md5\": \"846e27a652a5e1bfbd0ddd38a16dc865\"},\n\n{\"name\": \"rule SolarWinds.Orion.Core.BusinessLayer.dll_3\",\"md5\": \"b91ce2fa41029f6955bff20079468448\"},\n\n{\"name\": \"rule OrionImprovementBusinessLayer.2.cs\",\"md5\": \"4f2eb62fa529c0283b28d05ddd311fae\"},\n\n{\"name\": \"rule app_web_logoimagehandler.ashx.b6031896.dll\",\"md5\": \"56ceb6d0011d87b6e4d7023d7ef85676\"}\n\n]\n}"
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/feeds/custom/malware",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"feeds",
+								"custom",
+								"malware"
+							]
+						},
+						"description": "Query Parameters\nallow: (string)\nAllow indicated whether allowed requests should be shown\n\napi: (string)\nAPIs are apis to filter by\n\nhostname: (string)\nHosts are hosts to filter by\n\nruleName: (string)\nRuleNames are the rules names to filter by\n\ntype: (string)\nType is the audit type\n\nuser: (string)\nUsers are users to filter by\n\nBody\nMedia type: application/json\n\nType: object\n\nProperties\n_id: (object)\nID is id representation\n\naccountID: (string)\nAccountID is the cloud account ID where the audit was created\n\nallow: (boolean)\nAllow indicates whether the command was allowe or denied\n\napi: (string)\nAPI is the api that is being audited\n\ncollections: (string)\nCollections are collections to which this audit applies\n\ncontainerName: (string)\nContainerName is the name of the container\n\nfqdn: (string)\nFQDN is the fully qualified domain name from which the audit originated\n\nhostname: (string)\nHostname is the hostname from which the audit originated\n\nimageName: (string)\nImageName is the name of the image\n\nmsg: (string)\nMsg is the message explaining the audit\n\nruleName: (string)\nRulesName is contains the name of the rule that was applied, when blocked\n\nsourceIP: (string)\nSourceIP is the remote agent's source IP\n\ntime: (datetime)\nTime is the UTC time of the audit event\n\ntype: (string)\nType is the audit type\n\nuser: (string)\nUser is the user that run the command"
+					},
+					"response": []
+				},
+				{
+					"name": "Customer Feeds Malware  Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/feeds/custom/malware",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"feeds",
+								"custom",
+								"malware"
+							]
+						},
+						"description": "Query Parameters\nallow: (string)\nAllow indicated whether allowed requests should be shown\n\napi: (string)\nAPIs are apis to filter by\n\nhostname: (string)\nHosts are hosts to filter by\n\nruleName: (string)\nRuleNames are the rules names to filter by\n\ntype: (string)\nType is the audit type\n\nuser: (string)\nUsers are users to filter by\n\nBody\nMedia type: application/json\n\nType: object\n\nProperties\n_id: (object)\nID is id representation\n\naccountID: (string)\nAccountID is the cloud account ID where the audit was created\n\nallow: (boolean)\nAllow indicates whether the command was allowe or denied\n\napi: (string)\nAPI is the api that is being audited\n\ncollections: (string)\nCollections are collections to which this audit applies\n\ncontainerName: (string)\nContainerName is the name of the container\n\nfqdn: (string)\nFQDN is the fully qualified domain name from which the audit originated\n\nhostname: (string)\nHostname is the hostname from which the audit originated\n\nimageName: (string)\nImageName is the name of the image\n\nmsg: (string)\nMsg is the message explaining the audit\n\nruleName: (string)\nRulesName is contains the name of the rule that was applied, when blocked\n\nsourceIP: (string)\nSourceIP is the remote agent's source IP\n\ntime: (datetime)\nTime is the UTC time of the audit event\n\ntype: (string)\nType is the audit type\n\nuser: (string)\nUser is the user that run the command"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Forensics",
+			"item": []
+		},
+		{
+			"name": "Groups",
+			"item": []
+		},
+		{
+			"name": "High Availability",
+			"item": []
+		},
+		{
+			"name": "Host Scan Reports",
+			"item": []
+		},
+		{
+			"name": "Images Scan Reports",
+			"item": []
+		},
+		{
+			"name": "Kubernetes ",
+			"item": []
+		},
+		{
+			"name": "Logs",
+			"item": [
+				{
+					"name": "Console Logs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/logs/console?lines=10",
+							"protocol": "https",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"logs",
+								"console"
+							],
+							"query": [
+								{
+									"key": "lines",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Retrieves the latest Console log messages by line number"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pivotal Cloud Foundry (PCF) Droplet Scan Reports",
+			"item": []
+		},
+		{
+			"name": "Policies",
+			"item": []
+		},
+		{
+			"name": "Profiles",
+			"item": []
+		},
+		{
+			"name": "Projects",
+			"item": []
+		},
+		{
+			"name": "Radar",
+			"item": []
+		},
+		{
+			"name": "Registry Scan Reports",
+			"item": []
+		},
+		{
+			"name": "SCAP",
+			"item": []
+		},
+		{
+			"name": "Scripts",
+			"item": [
+				{
+					"name": "Defender Install Script",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/scripts/defender.sh",
+							"protocol": "https",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"scripts",
+								"defender.sh"
+							]
+						},
+						"description": "Download the Defender set up script for Linux hosts."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Serverless Scan Reports",
+			"item": []
+		},
+		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "Serverless Scan Settings",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/settings/serverless",
+							"protocol": "https",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"settings",
+								"serverless"
+							]
+						},
+						"description": "{\n\t\"cap\":\"integer\",\n\t\"credential\":\"object\",\n\t\"_id\":\"string\",\n\t\"accountGUID\":\"string\",\n\t\"accountID\":\"string\",\n\t\"apiToken\":\"object\",\n\t\"encrypted\":\"string\",\n\t\"plain\":\"string\",\n\t\"caCert\":\"string\",\n\t\"lastModified\":\"datetime\",\n\t\"owner\":\"string\",\n\t\"secret\":\"object\",\n\t\"type\":\"object\",\n\t\"pattern\": \"string\",\n\t\"provider\":\"object\",\n\t\"region\":\"string\",\n\t\"roleArn\":\"string\",\n\t\"useAWSRole\":\"boolean\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Certificate Settings",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/settings/certs",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"settings",
+								"certs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Serverless Scan Settings Add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{compute-token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\n\t\t\"region\": \"us-east-1\",\n\t\t\"provider\": \"aws\",\n    \t\"cap\": 5,\n    \t\"useAWSRole\": false,\n    \t\"credential\": \n    {\n      \"type\":\"aws\",\n      \"_id\": \"CLOUD_ACCOUNT_NAME\"\n    }\n  }\n]"
+						},
+						"url": {
+							"raw": "https://{{compute-api-endpoint}}{{console-port}}/api/{{api-version}}/settings/serverless",
+							"protocol": "https",
+							"host": [
+								"{{compute-api-endpoint}}{{console-port}}"
+							],
+							"path": [
+								"api",
+								"{{api-version}}",
+								"settings",
+								"serverless"
+							]
+						},
+						"description": "{\n\t\"cap\":\"integer\",\n\t\"credential\":\"object\",\n\t\"_id\":\"string\",\n\t\"accountGUID\":\"string\",\n\t\"accountID\":\"string\",\n\t\"apiToken\":\"object\",\n\t\"encrypted\":\"string\",\n\t\"plain\":\"string\",\n\t\"caCert\":\"string\",\n\t\"lastModified\":\"datetime\",\n\t\"owner\":\"string\",\n\t\"secret\":\"object\",\n\t\"type\":\"object\",\n\t\"pattern\": \"string\",\n\t\"provider\":\"object\",\n\t\"region\":\"string\",\n\t\"roleArn\":\"string\",\n\t\"useAWSRole\":\"boolean\"\n}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Signup",
+			"item": []
+		},
+		{
+			"name": "Static",
+			"item": []
+		},
+		{
+			"name": "Statistics",
+			"item": []
+		},
+		{
+			"name": "Status",
+			"item": []
+		},
+		{
+			"name": "Tags",
+			"item": []
+		},
+		{
+			"name": "Trusted Images",
+			"item": []
+		},
+		{
+			"name": "Users",
+			"item": []
+		},
+		{
+			"name": "Utilities",
+			"item": []
+		},
+		{
+			"name": "Version",
+			"item": []
+		},
+		{
+			"name": "VM Image Scan Reports",
+			"item": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
