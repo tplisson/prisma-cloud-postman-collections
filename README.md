@@ -22,12 +22,15 @@ CWPP
 | ------------- |---------------| 
 |`compute-api-endpoint` | `https://us-east1.cloud.twistlock.com/us-1-123456789` |
 | `compute-token` | `<prisma_cloud_token>`  |
-| `api-version`   | `c22.01` |
+| `api-version`   | `v22.01` |
 
 <br/> 
 
 Prisma Cloud APIs documentation:  
 https://prisma.pan.dev/
+
+Prisma Cloud Instructions related to Postman Collections and Environments 
+https://github.com/PaloAltoNetworks/pcs-postman
 
 Postman documentation to import / export collections:  
 https://learning.postman.com/docs/getting-started/importing-and-exporting-data/
